@@ -15,6 +15,8 @@ def fetch(url, post=None, get=None, format='raw'):
             request = requests.post(url, data=post)
         if get:
             request = requests.get(url, params=get)
+        else:
+            request = requests.get(url)
 
         request.raise_for_status()
 

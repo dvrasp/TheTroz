@@ -1,19 +1,27 @@
+import os
 import sys
 import yaml
 import configobj
 
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
 import lib.spell
 import spells
 
-def ask(query, spellObjs, config, state):
+def ask(query, spellObjs, config, save):
     score = None
     spell = None
     result = None
     for score, spell, query in sorted((spell.parse(query) for spell in spellObjs), reverse=True):
+            state = save.get(spell.__class__.__name__)
             result, state = spell.incantation(query, config, state)
             if result is None:
                 print 'Warning: %s failed' % spell
             else:
+                save[spell.__class__.__name__] = state
                 break
     return score, spell, result
 
@@ -32,4 +40,13 @@ if __name__ == "__main__":
             '       "What is 12 + 421?"'
         )
 
-    print '[%s:%s] The Wizard of Troz Says: "%s"' % ask(query, spellObjs, config, None)
+    if os.path.exists('save.db'):
+        with open('save.db') as f:
+            save = pickle.load(f)
+    else:
+        save = {}
+
+    print '[%s:%s] The Wizard of Troz Says: "%s"' % ask(query, spellObjs, config, save)
+
+    with open('save.db', 'w') as f:
+        pickle.dump(save, f)
