@@ -1,6 +1,6 @@
-import lib.web
+import lib.spell
 
-class DDG(lib.spell.Spell):
+class DDG(lib.spell.BaseSpell):
     weight = 100
     pattern = r"""
         # 1 + 1
@@ -19,7 +19,7 @@ class DDG(lib.spell.Spell):
     """
 
     def incantation(self, query, config, state):
-        result = lib.web.fetch(
+        result = self.fetch(
             'http://api.duckduckgo.com',
             get = {
                 'q': query,

@@ -1,12 +1,12 @@
 import lib.spell
 
-class WolframAlpha(lib.spell.Spell):
+class WolframAlpha(lib.spell.BaseSpell):
     weight = 75
     pattern = r"""
         # 1 + 1
         (?:\d\s+[^\s]+\s+\d)|
 
-        # What are cookies? Who was George Washington?
+        # What is the tallest building in the world? Where was George Washington born? When is Christmas?
         (?:
             (?:who|what|when|where|why)
             \s+(?:is|are|was)
@@ -41,7 +41,7 @@ class WolframAlpha(lib.spell.Spell):
         resultRelevance = -inf
         resultValue = None
         for _ in range(3):
-            data = lib.web.fetch(
+            data = self.fetch(
                 'http://api.wolframalpha.com/v2/query',
                 get = {
                     'input': query,
