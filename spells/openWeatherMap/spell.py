@@ -1,14 +1,15 @@
-import itertools
 import lib.spell
 from dateutil import relativedelta as rdelta
 
+
 class Templates(object):
     current = "Curently, it's %s and %s. "
-    forecastParts = (
+    forecast_parts = (
         "By the %(period)s, the weather will turn %(description)s. ",
         "The %(period)s will be %(description)s. ",
         "It looks like the %(period)s of %(date)s will be %(description)s. ",
-    ) # Backwards so we can pop()
+    )  # Backwards so we can pop()
+
 
 class Forecast(object):
 
@@ -47,7 +48,8 @@ class Forecast(object):
     def __new__(self, data):
         # Data must be of the following format:
         # [morning1, morning2, afternoon1, afternoon2, evening1, evening2]
-        # If there is no data for a given time slot the value for that position should be None
+        # If there is no data for a given time slot,
+        #   the value for that position should be None
         forecast = [self.humanTerms(item) for item in data]
         return (
             ('morning', self.stringify(*forecast[0:2])),
@@ -60,11 +62,14 @@ class Forecast(object):
         if item is None:
             return (None, None)
 
-        data = {}
         terms = cls.terms
 
         description = []
-        temperature = [int(item['main']['temp_min']), int(item['main']['temp_max']), int(item['main']['temp'])]
+        temperature = [
+            int(item['main']['temp_min']),
+            int(item['main']['temp_max']),
+            int(item['main']['temp'])
+        ]
 
         clouds = item['clouds']['all']
         for num, string in terms['cloud']:
@@ -96,16 +101,15 @@ class Forecast(object):
                         description.append(string + ' rain')
                     break
 
-        # Unfortunately, openWeatherMap doesn't have PoP (probability of percipitation) data
+        # Unfortunately, openWeatherMap doesn't
+        #   have PoP (probability of percipitation) data
         return temperature, description
 
     @staticmethod
     def stringify(weather1, weather2):
         # Possible conditions:
         #   (a): The two conditions are the same
-        #       => mostly cloudy, starting at mid 60's and going up to high 80's
         #   (b): The two conditions are different
-        #       => a chance of scattered showers, becoming snow later on. Low of 23 and high of 35
         #   (c): Only one condition exists
 
         temperature1, description1 = weather1
@@ -131,10 +135,18 @@ class Forecast(object):
                 return '%s and %s' % (', '.join(elements[:-1]), elements[-1])
 
         if description1 == description2:
-            return "%s (high %s/low %s)" % (_stringify(description1), high, low)
+            return (
+                "%s (high %s/low %s)"
+                % (_stringify(description1), high, low)
+            )
         else:
             # Remove items from description2 that are in description1
-            description2 = [item for item in description2 if item not in description1]
+            description2 = [
+                item
+                for item in description2
+                if item not in description1
+            ]
+
             return '%s, becoming %s later on (high %s/low %s)' % (
                 _stringify(description1), _stringify(description2), high, low
             )
@@ -163,30 +175,35 @@ class OpenWeatherMap(lib.spell.BaseSpell):
         )
     """
 
-    offsetKeys = set(['current', 'today', 'tomorrow', 'monday', 'tuesday',
-                      'wednesday', 'thursday', 'friday', 'saturday', 'sunday','weekend'])
+    offsetKeys = set([
+        'current', 'today', 'tomorrow', 'monday', 'tuesday',
+        'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'weekend'
+    ])
 
     offsets = {
-        'current': [ rdelta.relativedelta(days=0) ],
-        'today': [ rdelta.relativedelta(days=0) ],
-        'tomorrow': [ rdelta.relativedelta(days=1) ],
-        'monday': [ rdelta.relativedelta(weekday=rdelta.MO) ],
-        'tuesday': [ rdelta.relativedelta(weekday=rdelta.TU) ],
-        'wednesday': [ rdelta.relativedelta(weekday=rdelta.WE) ],
-        'thursday': [ rdelta.relativedelta(weekday=rdelta.TH) ],
-        'friday': [ rdelta.relativedelta(weekday=rdelta.FR) ],
-        'saturday': [ rdelta.relativedelta(weekday=rdelta.SA) ],
-        'sunday': [ rdelta.relativedelta(weekday=rdelta.SU) ],
-        'weekend': [ rdelta.relativedelta(weekday=rdelta.SA), rdelta.relativedelta(weekday=rdelta.SU) ],
+        'current': [rdelta.relativedelta(days=0)],
+        'today': [rdelta.relativedelta(days=0)],
+        'tomorrow': [rdelta.relativedelta(days=1)],
+        'monday': [rdelta.relativedelta(weekday=rdelta.MO)],
+        'tuesday': [rdelta.relativedelta(weekday=rdelta.TU)],
+        'wednesday': [rdelta.relativedelta(weekday=rdelta.WE)],
+        'thursday': [rdelta.relativedelta(weekday=rdelta.TH)],
+        'friday': [rdelta.relativedelta(weekday=rdelta.FR)],
+        'saturday': [rdelta.relativedelta(weekday=rdelta.SA)],
+        'sunday': [rdelta.relativedelta(weekday=rdelta.SU)],
+        'weekend': [
+            rdelta.relativedelta(weekday=rdelta.SA),
+            rdelta.relativedelta(weekday=rdelta.SU)
+        ],
     }
 
     hours = [
-        ' 05:00:00', # morning 1
-        ' 08:00:00', # morning 2
-        ' 11:00:00', # afternoon 1
-        ' 14:00:00', # afternoon 2
-        ' 17:00:00', # evening 1
-        ' 20:00:00', # evening 2
+        ' 05:00:00',  # morning 1
+        ' 08:00:00',  # morning 2
+        ' 11:00:00',  # afternoon 1
+        ' 14:00:00',  # afternoon 2
+        ' 17:00:00',  # evening 1
+        ' 20:00:00',  # evening 2
     ]
 
     def incantation(self, query, config, state):
@@ -196,80 +213,102 @@ class OpenWeatherMap(lib.spell.BaseSpell):
             state = {}
 
         today = self.today()
-        queryWords = [word for word in query.split(' ') if word]
+        query_words = [word for word in query.split(' ') if word]
 
-        if 'next' in queryWords:
+        if 'next' in query_words:
             # There's no way we'll have enough data
             return None, state
 
-        if 'for' in queryWords:
-            index = queryWords.index('for')
-            queryLoc = ' '.join(queryWords[index+1:])
-            del queryWords[index:]
-        elif 'in' in queryWords:
-            index = queryWords.index('in')
-            queryLoc = ' '.join(queryWords[index+1:])
-            del queryWords[index:]
+        if 'for' in query_words:
+            index = query_words.index('for')
+            query_loc = ' '.join(query_words[index+1:])
+            del query_words[index:]
+        elif 'in' in query_words:
+            index = query_words.index('in')
+            query_loc = ' '.join(query_words[index+1:])
+            del query_words[index:]
         else:
-            queryLoc = config['Weather']['location']
+            query_loc = config['Weather']['location']
 
-        queryWords = set((word.rstrip("'s").lower() for word in queryWords))
-        queryWords.intersection_update(self.offsetKeys)
+        query_words = set((word.rstrip("'s").lower() for word in query_words))
+        query_words.intersection_update(self.offsetKeys)
         try:
-            weekday = tuple(queryWords)[0]
+            weekday = tuple(query_words)[0]
             offsets = self.offsets[weekday]
         except (KeyError, IndexError):
             # Just give the current weather
             weekday = 'current'
             offsets = self.offsets[weekday]
         try:
-            locationID = state[queryLoc]
+            location_id = state[query_loc]
         except KeyError:
-            data = self.fetch('http://api.openweathermap.org/data/2.1/find/name', get={'q':queryLoc}, format='json')
+            data = self.fetch(
+                'http://api.openweathermap.org/data/2.1/find/name',
+                get={'q': query_loc},
+                format='json'
+            )
             try:
-                locationID = state[queryLoc] = data['list'][0]['id']
+                location_id = state[query_loc] = data['list'][0]['id']
             except KeyError:
                 return None, state
 
-        if weekday in ('current','today'):
+        if weekday in ('current', 'today'):
+            url = (
+                'http://api.openweathermap.org/data/2.1/weather/city/%s'
+                % location_id
+            )
+
             data = self.fetch(
-                'http://api.openweathermap.org/data/2.1/weather/city/' + `locationID`,
-                get = {'units': config['Weather']['units']},
-                format = 'json'
+                url,
+                get={'units': config['Weather']['units']},
+                format='json'
             )
             temperature, description = Forecast.humanTerms(data)
-            elements = [`temperature[2]`] + description
-            result.append(Templates.current % (', '.join(elements[:-1]), elements[-1]))
+            elements = [str(temperature[2])] + description
+            result.append(
+                Templates.current
+                % (', '.join(elements[:-1]), elements[-1])
+            )
             weekday = 'today'
 
         # Finally, let's get the data!
+        url = (
+            'http://api.openweathermap.org/data/2.2/forecast/city/%s'
+            % location_id
+        )
+
         data = self.fetch(
-            'http://api.openweathermap.org/data/2.2/forecast/city/' + `locationID`,
-            get = {'units': config['Weather']['units']},
-            format = 'json'
+            url,
+            get={'units': config['Weather']['units']},
+            format='json'
         )
 
         for offset in offsets:
             if len(result) > 1:
                 result.append("\n\n")
 
-            dateObj = today + offset
-            dateStr = dateObj.strftime('%Y-%m-%d')
-            dates = [ dateStr + hour for hour in self.hours ]
-            forecastDates = dict(((date, None) for date in dates))
-            forecastParts = list(Templates.forecastParts)
+            date_obj = today + offset
+            date_string = date_obj.strftime('%Y-%m-%d')
+            dates = [date_string + hour for hour in self.hours]
+            forecast_dates = dict(((date, None) for date in dates))
+            forecast_parts = list(Templates.forecast_parts)
 
             for item in data['list']:
-                if item['dt_txt'] in forecastDates:
-                    forecastDates[item['dt_txt']] = item
+                if item['dt_txt'] in forecast_dates:
+                    forecast_dates[item['dt_txt']] = item
 
             values = {
-                'date': dateObj.strftime('%a, %b %e')
+                'date': date_obj.strftime('%a, %b %e')
             }
 
-            forecast = Forecast((forecastDates[x] for x in sorted(forecastDates)))
+            forecast = (
+                Forecast((
+                    forecast_dates[x] for x in sorted(forecast_dates)
+                ))
+            )
+
             for values['period'], values['description'] in forecast:
                 if values['description']:
-                    result.append(forecastParts.pop() % values)
+                    result.append(forecast_parts.pop() % values)
 
         return "".join(result), state

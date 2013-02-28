@@ -1,5 +1,6 @@
 import lib.spell
 
+
 class DDG(lib.spell.BaseSpell):
     weight = 100
     pattern = r"""
@@ -21,14 +22,14 @@ class DDG(lib.spell.BaseSpell):
     def incantation(self, query, config, state):
         result = self.fetch(
             'http://api.duckduckgo.com',
-            get = {
+            get={
                 'q': query,
                 'format': 'json',
                 'no_redirect': 1,
                 'no_html': 1,
                 'skip_disambig': 1
             },
-            format = 'json'
+            format='json'
         )
         value = (
             result.get('Answer', None) or

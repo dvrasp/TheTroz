@@ -4,10 +4,12 @@ import inspect
 import datetime
 import requests
 import StringIO
-from xml.etree import ElementTree as etree
+from xml.etree import ElementTree as ETree
+
 
 class Pluggable(object):
     _registry = {}
+
     class __metaclass__(type):
         def __init__(cls, name, bases, dict):
             for base in bases:
@@ -20,15 +22,18 @@ class Pluggable(object):
     def registered(cls):
         return cls._registry.get(cls.__name__, [])
 
+
 class BaseSpell(Pluggable):
 
     weight = float('-inf')
-    pattern = '$a' # Will never match anything
-    blacklist = '$a' # Ditto
+    pattern = '$a'  # Will never match anything
+    blacklist = '$a'  # Ditto
     fetchFormats = {
         'raw': lambda request: request.text,
         'json': lambda request: request.json(),
-        'xml': lambda request: etree.parse(StringIO.StringIO(request.text.encode('UTF-8')))._root
+        'xml': lambda request: ETree.parse(
+            StringIO.StringIO(request.text.encode('UTF-8'))
+        )._root
     }
     today = datetime.date.today
 
@@ -48,7 +53,7 @@ class BaseSpell(Pluggable):
             except KeyError:
                 raise ValueError('Invalid format: %s' % format)
 
-        except requests.exceptions.HTTPError, e:
+        except requests.exceptions.HTTPError:
             raise
 
     def __init__(self):

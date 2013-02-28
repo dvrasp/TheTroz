@@ -1,4 +1,6 @@
+import time
 import lib.spell
+
 
 class WolframAlpha(lib.spell.BaseSpell):
     weight = 75
@@ -6,7 +8,8 @@ class WolframAlpha(lib.spell.BaseSpell):
         # 1 + 1
         (?:\d\s+[^\s]+\s+\d)|
 
-        # What is the tallest building in the world? Where was George Washington born? When is Christmas?
+        # What is the tallest building in the world?
+        # Where was George Washington born? When is Christmas?
         (?:
             (?:who|what|when|where|why)
             \s+(?:is|are|was)
@@ -33,21 +36,22 @@ class WolframAlpha(lib.spell.BaseSpell):
         )
     """
     blacklist = "\s+(?:you|you're|your)\s+"
-    config = { 'WolframAlpha': { 'appID': str } }
+    config = {'WolframAlpha': {'appID': str}}
 
     def incantation(self, query, config, state):
-        # For some reason, sometimes W|A returns blank data. We'll try 3 times to get the data
+        # For some reason, sometimes W|A returns blank data.
+        # We'll try 3 times to get the data
         inf = float('inf')
-        resultRelevance = -inf
-        resultValue = None
+        result_relevance = -inf
+        result_value = None
         for _ in range(3):
             data = self.fetch(
                 'http://api.wolframalpha.com/v2/query',
-                get = {
+                get={
                     'input': query,
                     'appid': config['WolframAlpha']['appID']
                 },
-                format = 'xml'
+                format='xml'
             )
 
             if data.attrib['success'] == 'true':
@@ -66,8 +70,8 @@ class WolframAlpha(lib.spell.BaseSpell):
                     else:
                         relevance = -inf
 
-                    if relevance > resultRelevance:
-                        resultRelevance = relevance
-                        resultValue = pod.findall('subpod')[0].find('plaintext').text
+                    if relevance > result_relevance:
+                        result_relevance = relevance
+                        result_value = pod.findall('subpod')[0].find('plaintext').text
 
-            return resultValue, state
+            return result_value, state

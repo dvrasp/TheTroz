@@ -8,31 +8,42 @@ import requests
 import tempfile
 import datetime
 import itertools
-import functools
 import unittest2
 import collections
 import spells
 import lib.spell
+
 
 class WebMock(object):
 
     def __init__(self, root):
         self.root = root
         self.routes = []
-        self.mock = mock.patch('lib.spell.BaseSpell.fetch', spec=True, side_effect=self.mock_fetch)
+        self.mock = mock.patch(
+            'lib.spell.BaseSpell.fetch',
+            spec=True,
+            side_effect=self.mock_fetch
+        )
 
     def route(self, url, file, post=None, get=None, format='raw'):
         with open(os.path.join(self.root, file), 'r') as f:
             request = mock.Mock()
             request.text = f.read().decode('UTF-8')
             request.json = lambda: json.loads(request.text)
-            self.routes.append(((url, post, get, format), lib.spell.BaseSpell.fetchFormats[format](request)))
+            self.routes.append((
+                (url, post, get, format),
+                lib.spell.BaseSpell.fetchFormats[format](request)
+            ))
 
     def mock_fetch(self, url, post=None, get=None, format='raw'):
         for args, content in self.routes:
             if args == (url, post, get, format):
                 return content
-        raise Exception('Unknown request: fetch(url=%s, post=%s, get=%s, format=%s)' % (url, post, get, format))
+        raise Exception(
+            'Unknown request: fetch(url=%s, post=%s, get=%s, format=%s)'
+            % (url, post, get, format)
+        )
+
 
 class WebCapture(object):
     def __init__(self):
@@ -78,25 +89,28 @@ class WebCapture(object):
         for patch in self.patches:
             patch.stop()
 
+
 class ShamanMetaClass(type):
-    def __new__(meta, className, bases, classDict):
+    def __new__(meta, class_name, bases, class_dict):
         def callback(function, args):
             try:
-                stringTypes = types.StringTypes # Python2.x
+                string_types = types.StringTypes  # Python2.x
             except AttributeError:
-                stringTypes = str # Python3
+                string_types = str  # Python3
 
-            if isinstance(args, stringTypes):
+            if isinstance(args, string_types):
                 return lambda self: function(self, args)
             else:
                 return lambda self: function(self, *args)
 
-        for objName, obj in classDict.items():
+        for objName, obj in class_dict.items():
             if hasattr(obj, 'shaman_generate_inputs'):
                 for id, input in obj.shaman_generate_inputs:
-                    classDict['%s_%s' % (obj.__name__, id)] = callback(obj, input)
-                del classDict[objName]
-        return type.__new__(meta, className, bases, classDict)
+                    key = '%s_%s' % (obj.__name__, id)
+                    class_dict[key] = callback(obj, input)
+                del class_dict[objName]
+        return type.__new__(meta, class_name, bases, class_dict)
+
 
 class Shaman(unittest2.TestCase):
 
@@ -112,7 +126,8 @@ class Shaman(unittest2.TestCase):
         cls.web = WebMock(os.path.join(root, 'test_data'))
         cls.patches = [cls.web.mock]
 
-        # Search for spell if one is not already provided (a spell that is in the same directory)
+        # Search for spell if one is not already provided
+        # (a spell that is in the same directory)
         if cls.spell is None:
             for spell in spells.ALL:
                 dir = spells.ALL[spell]
@@ -120,9 +135,12 @@ class Shaman(unittest2.TestCase):
                     cls.spell = spell
                     break
             if cls.spell is None:
-                raise ValueError('Unable to detect associated spell for: %s.%s' % (inspect.getfile(cls), cls))
+                raise ValueError(
+                    'Unable to detect associated spell for: %s.%s'
+                    % (inspect.getfile(cls), cls)
+                )
 
-        cls.spellObj = cls.spell()
+        cls.spell_obj = cls.spell()
 
     @classmethod
     def generate(cls, *args, **kwargs):
@@ -143,16 +161,21 @@ class Shaman(unittest2.TestCase):
         normalize = lambda string: re.sub(r'\s+', ' ', string).lower().strip()
 
         if normalize(first) != normalize(second):
-            defaultMsg = '%s\n<[---------- does not look like ----------]>\n%s' % (first, second)
-            msg = self._formatMessage(msg, defaultMsg)
+            default_msg = (
+                '%s\n<[---------- does not look like ----------]>\n%s'
+                % (first, second)
+            )
+            msg = self._formatMessage(msg, default_msg)
             raise self.failureException(msg)
 
     def query(self, query):
         for patch in self.patches:
             patch.start()
 
-        score, cls, query = self.spellObj.parse(query)
-        result, self.state = self.spellObj.incantation(query, self.config, self.state)
+        score, cls, query = self.spell_obj.parse(query)
+        result, self.state = self.spell_obj.incantation(
+            query, self.config, self.state
+        )
 
         for patch in self.patches:
             patch.stop()
@@ -160,6 +183,8 @@ class Shaman(unittest2.TestCase):
         return result
 
     def today(self, year, month, day):
-        patch = mock.patch('lib.spell.BaseSpell.today', lambda self: datetime.date(year, month, day))
+        patch = mock.patch(
+            'lib.spell.BaseSpell.today',
+            lambda self: datetime.date(year, month, day)
+        )
         self.patches.append(patch)
-

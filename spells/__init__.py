@@ -4,7 +4,9 @@ import imp
 import pkgutil
 import lib.spell
 
+
 classSpellRE = re.compile(r'class\s+[^\(]+\(.*BaseSpell\s*\)\s*:')
+
 
 def collect_spells(root='spells'):
     for loader, name, ispkg in pkgutil.iter_modules([root]):
