@@ -1,0 +1,349 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<queryresult success='true'
+    error='false'
+    numpods='12'
+    datatypes='Quantity'
+    timedout=''
+    timedoutpods=''
+    timing='2.253'
+    parsetiming='0.679'
+    parsetimedout='false'
+    recalculate=''
+    id='MSPa105861a598d1f6fc6ah38000023e4fe8i5g5hii02'
+    host='http://www4a.wolframalpha.com'
+    server='36'
+    related='http://www4a.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa105871a598d1f6fc6ah3800004e3393e03d610i34&amp;s=36'
+    version='2.6'>
+ <pod title='Input interpretation'
+     scanner='Identity'
+     id='Input'
+     position='100'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>convert 15 miles to feet</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105881a598d1f6fc6ah3800004890efgg8a4a3e3e?MSPStoreType=image/gif&amp;s=36'
+       alt='convert 15 miles to feet'
+       title='convert 15 miles to feet'
+       width='149'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Result'
+     scanner='Identity'
+     id='Result'
+     position='200'
+     error='false'
+     numsubpods='1'
+     primary='true'>
+  <subpod title=''
+      primary='true'>
+   <plaintext>79200 feet</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105891a598d1f6fc6ah3800004iheah0d8h2i1agc?MSPStoreType=image/gif&amp;s=36'
+       alt='79200 feet'
+       title='79200 feet'
+       width='69'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Additional conversions'
+     scanner='Unit'
+     id='AdditionalConversion'
+     position='300'
+     error='false'
+     numsubpods='4'>
+  <subpod title=''>
+   <plaintext>13.03 nmi  (nautical miles)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105901a598d1f6fc6ah380000672875i151a3bch0?MSPStoreType=image/gif&amp;s=36'
+       alt='13.03 nmi  (nautical miles)'
+       title='13.03 nmi  (nautical miles)'
+       width='163'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>24.14 km  (kilometers)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105911a598d1f6fc6ah3800004ed3e6ee25h7e0da?MSPStoreType=image/gif&amp;s=36'
+       alt='24.14 km  (kilometers)'
+       title='24.14 km  (kilometers)'
+       width='137'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>24140 meters</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105921a598d1f6fc6ah3800006451f614acihe119?MSPStoreType=image/gif&amp;s=36'
+       alt='24140 meters'
+       title='24140 meters'
+       width='88'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>2.414×10^6 cm  (centimeters)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105931a598d1f6fc6ah3800002gb3d15ebg97e6f3?MSPStoreType=image/gif&amp;s=36'
+       alt='2.414×10^6 cm  (centimeters)'
+       title='2.414×10^6 cm  (centimeters)'
+       width='185'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Comparison as length'
+     scanner='Unit'
+     id='ComparisonAsLength'
+     position='400'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext> ~~ 0.57 × length of a marathon race ( 42.15 to 42.24 km )</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105941a598d1f6fc6ah38000043e6ggeg4a4f6e2h?MSPStoreType=image/gif&amp;s=36'
+       alt=' ~~ 0.57 × length of a marathon race ( 42.15 to 42.24 km )'
+       title=' ~~ 0.57 × length of a marathon race ( 42.15 to 42.24 km )'
+       width='340'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Comparisons as height'
+     scanner='Unit'
+     id='ComparisonAsHeight'
+     position='500'
+     error='false'
+     numsubpods='3'>
+  <subpod title=''>
+   <plaintext> ~~ 0.62 × greatest height above the Earth from which a human has jumped ( 39045 m )</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105951a598d1f6fc6ah38000039b97h3eee0h3fb2?MSPStoreType=image/gif&amp;s=36'
+       alt=' ~~ 0.62 × greatest height above the Earth from which a human has jumped ( 39045 m )'
+       title=' ~~ 0.62 × greatest height above the Earth from which a human has jumped ( 39045 m )'
+       width='490'
+       height='42' />
+  </subpod>
+  <subpod title=''>
+   <plaintext> ~~ 0.97 × Mars Olympus Mons volcano height (~~ 25 km )</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105961a598d1f6fc6ah38000010386a3dh9h2hfh8?MSPStoreType=image/gif&amp;s=36'
+       alt=' ~~ 0.97 × Mars Olympus Mons volcano height (~~ 25 km )'
+       title=' ~~ 0.97 × Mars Olympus Mons volcano height (~~ 25 km )'
+       width='340'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext> ~~ 2.7 × Mount Everest height ( 8850 m )</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105971a598d1f6fc6ah38000028ee492i1h5914a6?MSPStoreType=image/gif&amp;s=36'
+       alt=' ~~ 2.7 × Mount Everest height ( 8850 m )'
+       title=' ~~ 2.7 × Mount Everest height ( 8850 m )'
+       width='242'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Comparison as depth'
+     scanner='Unit'
+     id='ComparisonAsDepth'
+     position='600'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext> ~~ 2.2 × greatest ocean depth (~~ 11 km )</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105981a598d1f6fc6ah38000048c9bhdb2h54icha?MSPStoreType=image/gif&amp;s=36'
+       alt=' ~~ 2.2 × greatest ocean depth (~~ 11 km )'
+       title=' ~~ 2.2 × greatest ocean depth (~~ 11 km )'
+       width='244'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Comparison as radius'
+     scanner='Unit'
+     id='ComparisonAsRadius'
+     position='700'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext> ~~ 8.2 × solar Schwarzschild radius ( 2 M_(.) G/c^2 )</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP105991a598d1f6fc6ah380000438c275a314ic8h8?MSPStoreType=image/gif&amp;s=36'
+       alt=' ~~ 8.2 × solar Schwarzschild radius ( 2 M_(.) G/c^2 )'
+       title=' ~~ 8.2 × solar Schwarzschild radius ( 2 M_(.) G/c^2 )'
+       width='293'
+       height='20' />
+  </subpod>
+ </pod>
+ <pod title='Comparison as distance'
+     scanner='Unit'
+     id='ComparisonAsDistance'
+     position='800'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext> ~~ ( 0.22 ~~ 1/5 ) × distance corresponding to one degree of latitude on the earth&apos;s equator ( 0.002778 equatorial circumferences of Earth )</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106001a598d1f6fc6ah3800002hcd9i69hc989cb0?MSPStoreType=image/gif&amp;s=36'
+       alt=' ~~ ( 0.22 ~~ 1/5 ) × distance corresponding to one degree of latitude on the earth&apos;s equator ( 0.002778 equatorial circumferences of Earth )'
+       title=' ~~ ( 0.22 ~~ 1/5 ) × distance corresponding to one degree of latitude on the earth&apos;s equator ( 0.002778 equatorial circumferences of Earth )'
+       width='467'
+       height='65' />
+  </subpod>
+ </pod>
+ <pod title='Electromagnetic frequency range'
+     scanner='UnitInformation'
+     id='FrequencyBands:QuantityData'
+     position='900'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>VLF  (very low frequency) </plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106011a598d1f6fc6ah3800000h1h948gi19d6hde?MSPStoreType=image/gif&amp;s=36'
+       alt='VLF  (very low frequency) '
+       title='VLF  (very low frequency) '
+       width='155'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Frequency allocation for United States (ITU region 2)'
+     scanner='UnitInformation'
+     id='FrequencyAllocations:QuantityData'
+     position='1000'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>primary use | radionavigation</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106021a598d1f6fc6ah3800005g2cb9i034652ada?MSPStoreType=image/gif&amp;s=36'
+       alt='primary use | radionavigation'
+       title='primary use | radionavigation'
+       width='233'
+       height='36' />
+  </subpod>
+ </pod>
+ <pod title='Interpretations'
+     scanner='Unit'
+     id='Interpretation'
+     position='1100'
+     error='false'
+     numsubpods='5'>
+  <subpod title=''>
+   <plaintext>length</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106031a598d1f6fc6ah3800000g2i2953dah7g4g9?MSPStoreType=image/gif&amp;s=36'
+       alt='length'
+       title='length'
+       width='42'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>height</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106041a598d1f6fc6ah3800006a0gi67d80hgge2h?MSPStoreType=image/gif&amp;s=36'
+       alt='height'
+       title='height'
+       width='41'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>depth</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106051a598d1f6fc6ah38000055b8ge867bh4e28a?MSPStoreType=image/gif&amp;s=36'
+       alt='depth'
+       title='depth'
+       width='37'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>radius</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106061a598d1f6fc6ah38000017e6ha1179c923dc?MSPStoreType=image/gif&amp;s=36'
+       alt='radius'
+       title='radius'
+       width='41'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>distance</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106071a598d1f6fc6ah3800005c0b3ahgciad17i1?MSPStoreType=image/gif&amp;s=36'
+       alt='distance'
+       title='distance'
+       width='54'
+       height='18' />
+  </subpod>
+  <states count='1'>
+   <state name='More'
+       input='Interpretation__More' />
+  </states>
+ </pod>
+ <pod title='Corresponding quantities'
+     scanner='Unit'
+     id='CorrespondingQuantity'
+     position='1200'
+     error='false'
+     numsubpods='6'>
+  <subpod title=''>
+   <plaintext>Light travel time t in vacuum from t = x/c:
+  | 81 µs  (microseconds)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106081a598d1f6fc6ah38000042d06h8i42b39ca0?MSPStoreType=image/gif&amp;s=36'
+       alt='Light travel time t in vacuum from t = x/c:
+  | 81 µs  (microseconds)'
+       title='Light travel time t in vacuum from t = x/c:
+  | 81 µs  (microseconds)'
+       width='282'
+       height='41' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>Light travel time t in an optical fiber t = 1.48x/c:
+  | 119 µs  (microseconds)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106091a598d1f6fc6ah380000595396bhagcb6916?MSPStoreType=image/gif&amp;s=36'
+       alt='Light travel time t in an optical fiber t = 1.48x/c:
+  | 119 µs  (microseconds)'
+       title='Light travel time t in an optical fiber t = 1.48x/c:
+  | 119 µs  (microseconds)'
+       width='320'
+       height='41' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>Sound travel time t at STP from t = x/v:
+  | 1.2 minutes
+  | (assuming speed of sound in dry air at 15 °C and 1 atmosphere pressure ~~ 340.3 m/s)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106101a598d1f6fc6ah3800000fg9403ga965a811?MSPStoreType=image/gif&amp;s=36'
+       alt='Sound travel time t at STP from t = x/v:
+  | 1.2 minutes
+  | (assuming speed of sound in dry air at 15 °C and 1 atmosphere pressure ~~ 340.3 m/s)'
+       title='Sound travel time t at STP from t = x/v:
+  | 1.2 minutes
+  | (assuming speed of sound in dry air at 15 °C and 1 atmosphere pressure ~~ 340.3 m/s)'
+       width='484'
+       height='61' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>Maximum distance visible from that height:
+  | 345 miles
+  | 555 km  (kilometers)
+  | 555447 meters</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106111a598d1f6fc6ah3800002d41cg6bf2dedf15?MSPStoreType=image/gif&amp;s=36'
+       alt='Maximum distance visible from that height:
+  | 345 miles
+  | 555 km  (kilometers)
+  | 555447 meters'
+       title='Maximum distance visible from that height:
+  | 345 miles
+  | 555 km  (kilometers)
+  | 555447 meters'
+       width='286'
+       height='81' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>Frequency nu of a photon in a vacuum from nu = c/lambda:
+  | 12 kHz  (kilohertz)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106121a598d1f6fc6ah3800000e47i30gb6eee17c?MSPStoreType=image/gif&amp;s=36'
+       alt='Frequency nu of a photon in a vacuum from nu = c/lambda:
+  | 12 kHz  (kilohertz)'
+       title='Frequency nu of a photon in a vacuum from nu = c/lambda:
+  | 12 kHz  (kilohertz)'
+       width='334'
+       height='41' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>Frequency nu of sound at STP from nu = v/lambda:
+  | 0.014 Hz  (hertz)
+  | (assuming speed of sound in dry air at 15 °C and 1 atmosphere pressure ~~ 340.3 m/s)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP106131a598d1f6fc6ah3800005hfe0d379302d7d6?MSPStoreType=image/gif&amp;s=36'
+       alt='Frequency nu of sound at STP from nu = v/lambda:
+  | 0.014 Hz  (hertz)
+  | (assuming speed of sound in dry air at 15 °C and 1 atmosphere pressure ~~ 340.3 m/s)'
+       title='Frequency nu of sound at STP from nu = v/lambda:
+  | 0.014 Hz  (hertz)
+  | (assuming speed of sound in dry air at 15 °C and 1 atmosphere pressure ~~ 340.3 m/s)'
+       width='484'
+       height='61' />
+  </subpod>
+ </pod>
+ <sources count='1'>
+  <source url='http://www.wolframalpha.com/sources/CountryDataSourceInformationNotes.html'
+      text='Country data' />
+ </sources>
+</queryresult>

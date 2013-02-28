@@ -1,0 +1,299 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<queryresult success='true'
+    error='false'
+    numpods='9'
+    datatypes='City,Holiday'
+    timedout=''
+    timedoutpods=''
+    timing='2.985'
+    parsetiming='0.361'
+    parsetimedout='false'
+    recalculate=''
+    id='MSPa50211a598ib3ab4f700e000027ha7dfcca5i3bid'
+    host='http://www4b.wolframalpha.com'
+    server='59'
+    related='http://www4b.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa50221a598ib3ab4f700e000039i5c19agi89c8d1&amp;s=59'
+    version='2.6'>
+ <pod title='Input interpretation'
+     scanner='Identity'
+     id='Input'
+     position='100'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>Easter Sunday | 2013</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50231a598ib3ab4f700e00002icifg6e085eg7ai?MSPStoreType=image/gif&amp;s=59'
+       alt='Easter Sunday | 2013'
+       title='Easter Sunday | 2013'
+       width='157'
+       height='23' />
+  </subpod>
+ </pod>
+ <pod title='Result'
+     scanner='Identity'
+     id='Result'
+     position='200'
+     error='false'
+     numsubpods='1'
+     primary='true'>
+  <subpod title=''
+      primary='true'>
+   <plaintext>Sunday, March 31, 2013</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50241a598ib3ab4f700e000065ddf04eib9968ff?MSPStoreType=image/gif&amp;s=59'
+       alt='Sunday, March 31, 2013'
+       title='Sunday, March 31, 2013'
+       width='161'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Date formats'
+     scanner='Date'
+     id='SingleDateFormats'
+     position='300'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>03/31/2013  (month/day/year)</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50251a598ib3ab4f700e00002id47737h5f6b28d?MSPStoreType=image/gif&amp;s=59'
+       alt='03/31/2013  (month/day/year)'
+       title='03/31/2013  (month/day/year)'
+       width='196'
+       height='18' />
+  </subpod>
+  <states count='1'>
+   <state name='More formats/calendars'
+       input='SingleDateFormats__More formats/calendars' />
+  </states>
+ </pod>
+ <pod title='Time difference from today (Wednesday, February 27, 2013)'
+     scanner='Date'
+     id='DifferenceConversions'
+     position='400'
+     error='false'
+     numsubpods='4'
+     primary='true'>
+  <subpod title=''
+      primary='true'>
+   <plaintext>1 month 4 days from now</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50261a598ib3ab4f700e00003f987hg5d701id02?MSPStoreType=image/gif&amp;s=59'
+       alt='1 month 4 days from now'
+       title='1 month 4 days from now'
+       width='164'
+       height='18' />
+  </subpod>
+  <subpod title=''
+      primary='true'>
+   <plaintext>4 weeks 4 days from now</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50271a598ib3ab4f700e00003h3f2f88e380e4g4?MSPStoreType=image/gif&amp;s=59'
+       alt='4 weeks 4 days from now'
+       title='4 weeks 4 days from now'
+       width='165'
+       height='18' />
+  </subpod>
+  <subpod title=''
+      primary='true'>
+   <plaintext>32 days from now</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50281a598ib3ab4f700e00003ei271e073a19755?MSPStoreType=image/gif&amp;s=59'
+       alt='32 days from now'
+       title='32 days from now'
+       width='119'
+       height='18' />
+  </subpod>
+  <subpod title=''
+      primary='true'>
+   <plaintext>22 weekdays from now</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50291a598ib3ab4f700e00006761257hd7952c40?MSPStoreType=image/gif&amp;s=59'
+       alt='22 weekdays from now'
+       title='22 weekdays from now'
+       width='154'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Time in 2013'
+     scanner='Date'
+     id='TimeInYear'
+     position='500'
+     error='false'
+     numsubpods='2'>
+  <subpod title=''>
+   <plaintext>90th day</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50301a598ib3ab4f700e00004fid169e98f05d90?MSPStoreType=image/gif&amp;s=59'
+       alt='90th day'
+       title='90th day'
+       width='55'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>13th week</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50311a598ib3ab4f700e00004gge83ecc5e599ig?MSPStoreType=image/gif&amp;s=59'
+       alt='13th week'
+       title='13th week'
+       width='65'
+       height='18' />
+  </subpod>
+  <states count='1'>
+   <state name='More'
+       input='TimeInYear__More' />
+  </states>
+ </pod>
+ <pod title='Observance for March 31 (United States)'
+     scanner='Date'
+     id='ObservanceDate (country)'
+     position='600'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>Easter Sunday</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50321a598ib3ab4f700e00001h47481004i3edb0?MSPStoreType=image/gif&amp;s=59'
+       alt='Easter Sunday'
+       title='Easter Sunday'
+       width='95'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Anniversaries for March 31, 2013'
+     scanner='Date'
+     id='NotableEventForDate'
+     position='700'
+     error='false'
+     numsubpods='5'>
+  <subpod title=''>
+   <plaintext>birth of DeAndre Liggins (1988- ): 25th anniversary</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50331a598ib3ab4f700e000060786bb0c6ci822g?MSPStoreType=image/gif&amp;s=59'
+       alt='birth of DeAndre Liggins (1988- ): 25th anniversary'
+       title='birth of DeAndre Liggins (1988- ): 25th anniversary'
+       width='339'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>birth of Dorin Dickerson (1988- ): 25th anniversary</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50341a598ib3ab4f700e00002fi0h611idibd3hc?MSPStoreType=image/gif&amp;s=59'
+       alt='birth of Dorin Dickerson (1988- ): 25th anniversary'
+       title='birth of Dorin Dickerson (1988- ): 25th anniversary'
+       width='337'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>birth of Paul Mercurio (1963- ): 50th anniversary</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50351a598ib3ab4f700e000068i44faheg9043ci?MSPStoreType=image/gif&amp;s=59'
+       alt='birth of Paul Mercurio (1963- ): 50th anniversary'
+       title='birth of Paul Mercurio (1963- ): 50th anniversary'
+       width='325'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>Day light savings time goes into effect for the first time in the United States (1918): 95th anniversary</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50361a598ib3ab4f700e00003962ce12a9c817c3?MSPStoreType=image/gif&amp;s=59'
+       alt='Day light savings time goes into effect for the first time in the United States (1918): 95th anniversary'
+       title='Day light savings time goes into effect for the first time in the United States (1918): 95th anniversary'
+       width='488'
+       height='42' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>Newfoundland joins the Canadian Confederation (1949): 64th anniversary</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50371a598ib3ab4f700e00002b4c98c33d63ge94?MSPStoreType=image/gif&amp;s=59'
+       alt='Newfoundland joins the Canadian Confederation (1949): 64th anniversary'
+       title='Newfoundland joins the Canadian Confederation (1949): 64th anniversary'
+       width='487'
+       height='18' />
+  </subpod>
+  <states count='1'>
+   <state name='More'
+       input='NotableEventForDate__More' />
+  </states>
+ </pod>
+ <pod title='Daylight information for March 31 in Washington, District of Columbia'
+     scanner='Date'
+     id='DaylightInformation'
+     position='800'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>sunrise | 6:55 am EDT
+sunset | 7:32 pm EDT
+duration of daylight | 12 hours 37 minutes</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50381a598ib3ab4f700e00005g6f43ci59535d4h?MSPStoreType=image/gif&amp;s=59'
+       alt='sunrise | 6:55 am EDT
+sunset | 7:32 pm EDT
+duration of daylight | 12 hours 37 minutes'
+       title='sunrise | 6:55 am EDT
+sunset | 7:32 pm EDT
+duration of daylight | 12 hours 37 minutes'
+       width='305'
+       height='100' />
+  </subpod>
+  <states count='1'>
+   <state name='More'
+       input='DaylightInformation__More' />
+  </states>
+ </pod>
+ <pod title='Phase of the Moon'
+     scanner='Date'
+     id='PhaseOfTheMoon'
+     position='900'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>waning gibbous moon</plaintext>
+   <img src='http://www4b.wolframalpha.com/Calculate/MSP/MSP50391a598ib3ab4f700e000010a7cda6c6aib036?MSPStoreType=image/gif&amp;s=59'
+       alt='waning gibbous moon'
+       title='waning gibbous moon'
+       width='182'
+       height='32' />
+  </subpod>
+  <states count='1'>
+   <state name='Large image'
+       input='PhaseOfTheMoon__Large image' />
+  </states>
+ </pod>
+ <assumptions count='3'>
+  <assumption type='Clash'
+      word='Easter'
+      template='Assuming &quot;${word}&quot; is ${desc1}. Use as ${desc2} instead'
+      count='4'>
+   <value name='Holiday'
+       desc='a holiday'
+       input='*C.Easter-_*Holiday-' />
+   <value name='GivenName'
+       desc='a given name'
+       input='*C.Easter-_*GivenName-' />
+   <value name='Word'
+       desc='a word'
+       input='*C.Easter-_*Word-' />
+   <value name='Gene'
+       desc='a gene'
+       input='*C.Easter-_*Gene-' />
+  </assumption>
+  <assumption type='SubCategory'
+      word='Easter'
+      template='Assuming ${desc1}. Use ${desc2} instead'
+      count='2'>
+   <value name='{Easter, Christianity}'
+       desc='Easter Sunday (Christianity)'
+       input='*DPClash.HolidayE.Easter-_**Easter.Christianity--' />
+   <value name='{OrthodoxEaster, Christianity}'
+       desc='Orthodox Easter Sunday (Christianity)'
+       input='*DPClash.HolidayE.Easter-_**OrthodoxEaster.Christianity--' />
+  </assumption>
+  <assumption type='HolidayYear'
+      template='Assuming ${desc1}. Use ${desc2} instead'
+      count='2'>
+   <value name='2013'
+       desc='Easter Sunday 2013'
+       input='*HolidayYear.*Easter.Christianity--_2013' />
+   <value name='2012'
+       desc='Easter Sunday 2012'
+       input='*HolidayYear.*Easter.Christianity--_2012' />
+  </assumption>
+ </assumptions>
+ <sources count='4'>
+  <source url='http://www.wolframalpha.com/sources/AstronomicalDataSourceInformationNotes.html'
+      text='Astronomical data' />
+  <source url='http://www.wolframalpha.com/sources/CountryDataSourceInformationNotes.html'
+      text='Country data' />
+  <source url='http://www.wolframalpha.com/sources/HolidayDataSourceInformationNotes.html'
+      text='Holiday data' />
+  <source url='http://www.wolframalpha.com/sources/PeopleDataSourceInformationNotes.html'
+      text='People data' />
+ </sources>
+</queryresult>

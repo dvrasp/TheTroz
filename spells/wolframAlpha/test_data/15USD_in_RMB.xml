@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<queryresult success='true'
+    error='false'
+    numpods='5'
+    datatypes='Quantity'
+    timedout=''
+    timedoutpods=''
+    timing='2.892'
+    parsetiming='0.311'
+    parsetimedout='false'
+    recalculate=''
+    id='MSPa35631a59935ec98ih4i400005gca46ii2719b5gh'
+    host='http://www4a.wolframalpha.com'
+    server='31'
+    related='http://www4a.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa35641a59935ec98ih4i4000016h75hb0i34i8hh1&amp;s=31'
+    version='2.6'>
+ <pod title='Input interpretation'
+     scanner='Identity'
+     id='Input'
+     position='100'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>convert $15  (US dollars) to Chinese yuan</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP35651a59935ec98ih4i4000030aie7bcgif4a157?MSPStoreType=image/gif&amp;s=31'
+       alt='convert $15  (US dollars) to Chinese yuan'
+       title='convert $15  (US dollars) to Chinese yuan'
+       width='265'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Result'
+     scanner='Money'
+     id='Result'
+     position='200'
+     error='false'
+     numsubpods='1'
+     primary='true'>
+  <subpod title=''>
+   <plaintext>yuan93.44  (Chinese yuan)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP35661a59935ec98ih4i400001dh5449cg2efbc6h?MSPStoreType=image/gif&amp;s=31'
+       alt='yuan93.44  (Chinese yuan)'
+       title='yuan93.44  (Chinese yuan)'
+       width='155'
+       height='18' />
+  </subpod>
+  <states count='1'>
+   <state name='More accuracy'
+       input='Result__More accuracy' />
+  </states>
+ </pod>
+ <pod title='Minimal currency form'
+     scanner='UnitInformation'
+     id='MakeChangeMoreThanOneCoin:QuantityData'
+     position='300'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>      +  43.76\:5206
+(total weight: 0.134 ounces)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP35671a59935ec98ih4i400004gbhhe828i905f5c?MSPStoreType=image/gif&amp;s=31'
+       alt='      +  43.76\:5206
+(total weight: 0.134 ounces)'
+       title='      +  43.76\:5206
+(total weight: 0.134 ounces)'
+       width='317'
+       height='112' />
+  </subpod>
+  <states count='2'>
+   <state name='Show physical characteristics'
+       input='MakeChangeMoreThanOneCoin:QuantityData__Show physical characteristics' />
+   <state name='Show metric'
+       input='MakeChangeMoreThanOneCoin:QuantityData__Show metric' />
+  </states>
+ </pod>
+ <pod title='Exchange history for  $15  (US dollars)'
+     scanner='Money'
+     id='History'
+     position='400'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>
+1-year  minimum | yuan93.22  (January 15, 2013 | 1 month ago)
+1-year  maximum | yuan95.92  (July 14, 2012 | 7 months ago)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP35681a59935ec98ih4i400005a5c216d21c8bb7d?MSPStoreType=image/gif&amp;s=31'
+       alt='
+1-year  minimum | yuan93.22  (January 15, 2013 | 1 month ago)
+1-year  maximum | yuan95.92  (July 14, 2012 | 7 months ago)'
+       title='
+1-year  minimum | yuan93.22  (January 15, 2013 | 1 month ago)
+1-year  maximum | yuan95.92  (July 14, 2012 | 7 months ago)'
+       width='450'
+       height='217' />
+  </subpod>
+  <states count='1'>
+   <statelist count='4'
+       value='Last year'
+       delimiters=''>
+    <state name='Last month'
+        input='History__Last month' />
+    <state name='Last year'
+        input='History__Last year' />
+    <state name='Last 5 years'
+        input='History__Last 5 years' />
+    <state name='Last 10 years'
+        input='History__Last 10 years' />
+   </statelist>
+  </states>
+  <infos count='1'>
+   <info>
+    <units count='1'>
+     <unit short='元1'
+         long='Chinese yuan' />
+     <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP35691a59935ec98ih4i400002ig3f1c2cf8d1ge7?MSPStoreType=image/gif&amp;s=31'
+         width='136'
+         height='26' />
+    </units>
+   </info>
+  </infos>
+ </pod>
+ <pod title='Additional currency conversions for  $15  (US dollars)'
+     scanner='Money'
+     id='CurrencyConversions'
+     position='500'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>JPY | ¥1374.89  (Japanese yen)
+EUR | euro11.44  (euros)
+GBP | £9.92  (British pounds)
+CAD | C$15.39  (Canadian dollars)
+MXN | $192.49  (Mexican pesos)</plaintext>
+   <img src='http://www4a.wolframalpha.com/Calculate/MSP/MSP35701a59935ec98ih4i400003g6774e6744ia571?MSPStoreType=image/gif&amp;s=31'
+       alt='JPY | ¥1374.89  (Japanese yen)
+EUR | euro11.44  (euros)
+GBP | £9.92  (British pounds)
+CAD | C$15.39  (Canadian dollars)
+MXN | $192.49  (Mexican pesos)'
+       title='JPY | ¥1374.89  (Japanese yen)
+EUR | euro11.44  (euros)
+GBP | £9.92  (British pounds)
+CAD | C$15.39  (Canadian dollars)
+MXN | $192.49  (Mexican pesos)'
+       width='265'
+       height='144' />
+  </subpod>
+  <states count='1'>
+   <state name='World currencies'
+       input='CurrencyConversions__World currencies' />
+  </states>
+ </pod>
+ <sources count='1'>
+  <source url='http://www.wolframalpha.com/sources/FinancialDataSourceInformationNotes.html'
+      text='Financial data' />
+ </sources>
+</queryresult>

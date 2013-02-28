@@ -1,0 +1,299 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<queryresult success='true'
+    error='false'
+    numpods='8'
+    datatypes=''
+    timedout=''
+    timedoutpods=''
+    timing='1.456'
+    parsetiming='0.454'
+    parsetimedout='false'
+    recalculate=''
+    id='MSPa20001a59aae0gghfdhb5000012hibh5f7c5ai8a1'
+    host='http://www5a.wolframalpha.com'
+    server='49'
+    related='http://www5a.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa20011a59aae0gghfdhb5000035365c11hh3aa0d9&amp;s=49'
+    version='2.6'>
+ <pod title='Input interpretation'
+     scanner='Identity'
+     id='Input'
+     position='100'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>convert 1 gallon to cups</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20021a59aae0gghfdhb500004hcc8b785i0b2452?MSPStoreType=image/gif&amp;s=49'
+       alt='convert 1 gallon to cups'
+       title='convert 1 gallon to cups'
+       width='154'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Result'
+     scanner='Identity'
+     id='Result'
+     position='200'
+     error='false'
+     numsubpods='1'
+     primary='true'>
+  <subpod title=''
+      primary='true'>
+   <plaintext>16 cups</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20031a59aae0gghfdhb500005dg50f4aga7gh7b7?MSPStoreType=image/gif&amp;s=49'
+       alt='16 cups'
+       title='16 cups'
+       width='50'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Additional conversions'
+     scanner='Unit'
+     id='AdditionalConversion'
+     position='300'
+     error='false'
+     numsubpods='5'>
+  <subpod title=''>
+   <plaintext>8 pints</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20041a59aae0gghfdhb500004e7h8iaaeb5adb67?MSPStoreType=image/gif&amp;s=49'
+       alt='8 pints'
+       title='8 pints'
+       width='41'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>4 quarts</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20051a59aae0gghfdhb500002hceha6cf18e1d1i?MSPStoreType=image/gif&amp;s=49'
+       alt='4 quarts'
+       title='4 quarts'
+       width='51'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>3.785 L  (liters)</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20061a59aae0gghfdhb50000127hh5ad9fdce7c4?MSPStoreType=image/gif&amp;s=49'
+       alt='3.785 L  (liters)'
+       title='3.785 L  (liters)'
+       width='92'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>0.003785 m^3  (cubic meters)</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20071a59aae0gghfdhb5000037ed870d11074cb3?MSPStoreType=image/gif&amp;s=49'
+       alt='0.003785 m^3  (cubic meters)'
+       title='0.003785 m^3  (cubic meters)'
+       width='180'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>3785 cm^3  (cubic centimeters)</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20081a59aae0gghfdhb5000056aiehfgf7f5cc24?MSPStoreType=image/gif&amp;s=49'
+       alt='3785 cm^3  (cubic centimeters)'
+       title='3785 cm^3  (cubic centimeters)'
+       width='191'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Comparisons as volume'
+     scanner='Unit'
+     id='ComparisonAsVolume'
+     position='400'
+     error='false'
+     numsubpods='2'>
+  <subpod title=''>
+   <plaintext> ~~ ( 0.17 ~~ 1/6 ) × volume of one mole of ideal gas at STP ( 1 mol molar volumes of an ideal gas at STP )</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20091a59aae0gghfdhb50000170e8e01h2a3h9i6?MSPStoreType=image/gif&amp;s=49'
+       alt=' ~~ ( 0.17 ~~ 1/6 ) × volume of one mole of ideal gas at STP ( 1 mol molar volumes of an ideal gas at STP )'
+       title=' ~~ ( 0.17 ~~ 1/6 ) × volume of one mole of ideal gas at STP ( 1 mol molar volumes of an ideal gas at STP )'
+       width='361'
+       height='42' />
+  </subpod>
+  <subpod title=''>
+   <plaintext> ~~ 0.8 × volume of blood in a typical human (~~ 5 L )</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20101a59aae0gghfdhb500001a1732c292478cac?MSPStoreType=image/gif&amp;s=49'
+       alt=' ~~ 0.8 × volume of blood in a typical human (~~ 5 L )'
+       title=' ~~ 0.8 × volume of blood in a typical human (~~ 5 L )'
+       width='311'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Comparisons as volume of food or beverage'
+     scanner='Unit'
+     id='ComparisonAsVolumeOfFoodOrBeverage'
+     position='500'
+     error='false'
+     numsubpods='3'>
+  <subpod title=''>
+   <plaintext> ~~ 1.2 × volume of a US size 10 can ( 105 fl oz )</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20111a59aae0gghfdhb500003282ga08bhacah64?MSPStoreType=image/gif&amp;s=49'
+       alt=' ~~ 1.2 × volume of a US size 10 can ( 105 fl oz )'
+       title=' ~~ 1.2 × volume of a US size 10 can ( 105 fl oz )'
+       width='284'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext> ~~ 2.3 × volume of a US size 5 can ( 7 cups )</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20121a59aae0gghfdhb500001h46b2c9bi1e14g6?MSPStoreType=image/gif&amp;s=49'
+       alt=' ~~ 2.3 × volume of a US size 5 can ( 7 cups )'
+       title=' ~~ 2.3 × volume of a US size 5 can ( 7 cups )'
+       width='266'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext> ~~ 4 × volume of a US size 3 can ( 4 cups )</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20131a59aae0gghfdhb5000030bie4hddb8f3e18?MSPStoreType=image/gif&amp;s=49'
+       alt=' ~~ 4 × volume of a US size 3 can ( 4 cups )'
+       title=' ~~ 4 × volume of a US size 3 can ( 4 cups )'
+       width='255'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Interpretations'
+     scanner='Unit'
+     id='Interpretation'
+     position='600'
+     error='false'
+     numsubpods='2'>
+  <subpod title=''>
+   <plaintext>volume</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20141a59aae0gghfdhb500002heh6i5hde8fheh9?MSPStoreType=image/gif&amp;s=49'
+       alt='volume'
+       title='volume'
+       width='48'
+       height='18' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>volume of food or beverage</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20151a59aae0gghfdhb50000543a06g0g373367b?MSPStoreType=image/gif&amp;s=49'
+       alt='volume of food or beverage'
+       title='volume of food or beverage'
+       width='180'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Basic unit dimensions'
+     scanner='Unit'
+     id='BasicUnitDimensions'
+     position='700'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>[length]^3</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20161a59aae0gghfdhb5000067gg8b3g507h15c4?MSPStoreType=image/gif&amp;s=49'
+       alt='[length]^3'
+       title='[length]^3'
+       width='60'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Corresponding quantities'
+     scanner='Unit'
+     id='CorrespondingQuantity'
+     position='800'
+     error='false'
+     numsubpods='4'>
+  <subpod title=''>
+   <plaintext>Radius r of a sphere from V = 4pir^3/3:
+  | 0.3172 feet
+  | 3.806 inches
+  | 9.668 cm  (centimeters)</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20171a59aae0gghfdhb500002754b8d557ie53i5?MSPStoreType=image/gif&amp;s=49'
+       alt='Radius r of a sphere from V = 4pir^3/3:
+  | 0.3172 feet
+  | 3.806 inches
+  | 9.668 cm  (centimeters)'
+       title='Radius r of a sphere from V = 4pir^3/3:
+  | 0.3172 feet
+  | 3.806 inches
+  | 9.668 cm  (centimeters)'
+       width='248'
+       height='81' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>Edge length a of a cube from V = a^3:
+  | 0.5113 feet
+  | 6.136 inches
+  | 15.58 cm  (centimeters)</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20181a59aae0gghfdhb500004d39918h9h4ie4gg?MSPStoreType=image/gif&amp;s=49'
+       alt='Edge length a of a cube from V = a^3:
+  | 0.5113 feet
+  | 6.136 inches
+  | 15.58 cm  (centimeters)'
+       title='Edge length a of a cube from V = a^3:
+  | 0.5113 feet
+  | 6.136 inches
+  | 15.58 cm  (centimeters)'
+       width='243'
+       height='81' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>Mass m of water from m = rhoV:
+  | 8.3 lb  (pounds)
+  | 3.8 kg  (kilograms)
+  | (assuming maximum water density ~~ 1000 kg/m^3)</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20191a59aae0gghfdhb50000314f7fcdiaeddbb6?MSPStoreType=image/gif&amp;s=49'
+       alt='Mass m of water from m = rhoV:
+  | 8.3 lb  (pounds)
+  | 3.8 kg  (kilograms)
+  | (assuming maximum water density ~~ 1000 kg/m^3)'
+       title='Mass m of water from m = rhoV:
+  | 8.3 lb  (pounds)
+  | 3.8 kg  (kilograms)
+  | (assuming maximum water density ~~ 1000 kg/m^3)'
+       width='297'
+       height='83' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>Molecules N of water from N = rhoV/MW:
+  | 1.265×10^26 molecules
+  | (assuming maximum water density ~~ 1000 kg/m^3)</plaintext>
+   <img src='http://www5a.wolframalpha.com/Calculate/MSP/MSP20201a59aae0gghfdhb500000gf966dg576300i8?MSPStoreType=image/gif&amp;s=49'
+       alt='Molecules N of water from N = rhoV/MW:
+  | 1.265×10^26 molecules
+  | (assuming maximum water density ~~ 1000 kg/m^3)'
+       title='Molecules N of water from N = rhoV/MW:
+  | 1.265×10^26 molecules
+  | (assuming maximum water density ~~ 1000 kg/m^3)'
+       width='297'
+       height='65' />
+  </subpod>
+ </pod>
+ <assumptions count='2'>
+  <assumption type='Unit'
+      word='cups'
+      template='Assuming ${desc1} for &quot;${word}&quot;. Use ${desc2} instead'
+      count='5'>
+   <value name='Cups'
+       desc='US customary cups'
+       input='UnitClash_*cups.*Cups--' />
+   <value name='CanadianCups'
+       desc='Canadian cups'
+       input='UnitClash_*cups.*CanadianCups--' />
+   <value name='MetricCups'
+       desc='metric cups'
+       input='UnitClash_*cups.*MetricCups--' />
+   <value name='CupsUK'
+       desc='UK cups'
+       input='UnitClash_*cups.*CupsUK--' />
+   <value name='CupsUSLegal'
+       desc='US legal cups'
+       input='UnitClash_*cups.*CupsUSLegal--' />
+  </assumption>
+  <assumption type='Unit'
+      word='gallon'
+      template='Assuming ${desc1} for &quot;${word}&quot;. Use ${desc2} instead'
+      count='4'>
+   <value name='Gallons'
+       desc='US liquid gallons'
+       input='UnitClash_*gallon.*Gallons--' />
+   <value name='DryGallons'
+       desc='dry gallons'
+       input='UnitClash_*gallon.*DryGallons--' />
+   <value name='GallonsUK'
+       desc='UK fluid gallons'
+       input='UnitClash_*gallon.*GallonsUK--' />
+   <value name='GallonsUKBeer'
+       desc='UK gallons of beer'
+       input='UnitClash_*gallon.*GallonsUKBeer--' />
+  </assumption>
+ </assumptions>
+</queryresult>

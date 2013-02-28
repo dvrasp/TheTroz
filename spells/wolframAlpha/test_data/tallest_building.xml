@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<queryresult success='true'
+    error='false'
+    numpods='10'
+    datatypes='Building,City,Country,WikipediaStats'
+    timedout=''
+    timedoutpods=''
+    timing='3.483'
+    parsetiming='0.559'
+    parsetimedout='false'
+    recalculate=''
+    id='MSPa22861a5981i337ii1c6200002afd3149gfg1i47a'
+    host='http://www2.wolframalpha.com'
+    server='5'
+    related='http://www2.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa22871a5981i337ii1c62000054ii5hd9d50he93f&amp;s=5'
+    version='2.6'>
+ <pod title='Input interpretation'
+     scanner='Identity'
+     id='Input'
+     position='100'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>tallest building | by height
+in world</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22881a5981i337ii1c620000393da123650a6g26?MSPStoreType=image/gif&amp;s=5'
+       alt='tallest building | by height
+in world'
+       title='tallest building | by height
+in world'
+       width='219'
+       height='61' />
+  </subpod>
+ </pod>
+ <pod title='Result'
+     scanner='Ordinal'
+     id='Result'
+     position='200'
+     error='false'
+     numsubpods='1'
+     primary='true'>
+  <subpod title=''>
+   <plaintext>Burj Khalifa
+(2717 feet)</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22891a5981i337ii1c6200000ei1e0g7705h1e44?MSPStoreType=image/gif&amp;s=5'
+       alt='Burj Khalifa
+(2717 feet)'
+       title='Burj Khalifa
+(2717 feet)'
+       width='78'
+       height='36' />
+  </subpod>
+ </pod>
+ <pod title='City'
+     scanner='Ordinal'
+     id='CityLocation:BuildingData'
+     position='300'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>Dubai, United Arab Emirates</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22901a5981i337ii1c620000663c8362aaf9dg82?MSPStoreType=image/gif&amp;s=5'
+       alt='Dubai, United Arab Emirates'
+       title='Dubai, United Arab Emirates'
+       width='188'
+       height='18' />
+  </subpod>
+ </pod>
+ <pod title='Image'
+     scanner='Ordinal'
+     id='Image:BuildingData'
+     position='400'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext></plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22911a5981i337ii1c6200002749h73575bh08f8?MSPStoreType=image/gif&amp;s=5'
+       alt=''
+       title=''
+       width='100'
+       height='150' />
+  </subpod>
+ </pod>
+ <pod title='Location'
+     scanner='Ordinal'
+     id='Location:BuildingData'
+     position='500'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext></plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22921a5981i337ii1c6200000f77e1eid9c2h08i?MSPStoreType=image/gif&amp;s=5'
+       alt=''
+       title=''
+       width='298'
+       height='220' />
+  </subpod>
+  <states count='1'>
+   <state name='Show coordinates'
+       input='Location:BuildingData__Show coordinates' />
+  </states>
+  <infos count='1'>
+   <info>
+    <link url='http://maps.google.com?ie=UTF8&amp;z=12&amp;t=k&amp;ll=25.1971%2C55.2741&amp;q=25.1971%20N%2C%2055.2741%20E'
+        text='Satellite image' />
+   </info>
+  </infos>
+ </pod>
+ <pod title='Local map'
+     scanner='Ordinal'
+     id='Map:BuildingData'
+     position='600'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext></plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22931a5981i337ii1c62000030ha4367ca50ahb6?MSPStoreType=image/gif&amp;s=5'
+       alt=''
+       title=''
+       width='256'
+       height='278' />
+  </subpod>
+  <states count='3'>
+   <statelist count='13'
+       value='5 miles across'
+       delimiters=''>
+    <state name='3 miles across'
+        input='Map:BuildingData__3 miles across' />
+    <state name='5 miles across'
+        input='Map:BuildingData__5 miles across' />
+    <state name='11 miles across'
+        input='Map:BuildingData__11 miles across' />
+    <state name='22 miles across'
+        input='Map:BuildingData__22 miles across' />
+    <state name='44 miles across'
+        input='Map:BuildingData__44 miles across' />
+    <state name='88 miles across'
+        input='Map:BuildingData__88 miles across' />
+    <state name='180 miles across'
+        input='Map:BuildingData__180 miles across' />
+    <state name='350 miles across'
+        input='Map:BuildingData__350 miles across' />
+    <state name='700 miles across'
+        input='Map:BuildingData__700 miles across' />
+    <state name='1400 miles across'
+        input='Map:BuildingData__1400 miles across' />
+    <state name='2800 miles across'
+        input='Map:BuildingData__2800 miles across' />
+    <state name='5100 miles across'
+        input='Map:BuildingData__5100 miles across' />
+    <state name='9700 miles across'
+        input='Map:BuildingData__9700 miles across' />
+   </statelist>
+   <state name='Metric'
+       input='Map:BuildingData__Metric' />
+   <state name='Larger display'
+       input='Map:BuildingData__Larger display' />
+  </states>
+  <infos count='1'>
+   <info>
+    <link url='http://maps.google.com?ie=UTF8&amp;z=12&amp;t=k&amp;ll=25.1971%2C55.2741&amp;q=25.1971%20N%2C%2055.2741%20E'
+        text='Satellite image' />
+   </info>
+  </infos>
+ </pod>
+ <pod title='Properties'
+     scanner='Ordinal'
+     id='Basic:BuildingData'
+     position='700'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>height | 2717 feet  (city rank: 1st  |  national rank: 1st  |  world rank: 1st)
+floors | 160
+completion date | October 1, 2009 (3 years ago)</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22941a5981i337ii1c620000611fa8ed705a1b6a?MSPStoreType=image/gif&amp;s=5'
+       alt='height | 2717 feet  (city rank: 1st  |  national rank: 1st  |  world rank: 1st)
+floors | 160
+completion date | October 1, 2009 (3 years ago)'
+       title='height | 2717 feet  (city rank: 1st  |  national rank: 1st  |  world rank: 1st)
+floors | 160
+completion date | October 1, 2009 (3 years ago)'
+       width='496'
+       height='117' />
+  </subpod>
+  <states count='1'>
+   <state name='Show metric'
+       input='Basic:BuildingData__Show metric' />
+  </states>
+ </pod>
+ <pod title='Nearby tall building'
+     scanner='Ordinal'
+     id='BuildingHierarchy:BuildingData'
+     position='800'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>Emirates Office Tower | 1.5 miles north-northeast | 1165 feet   (city rank: 3rd)</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22951a5981i337ii1c62000048g7aecbd76aidd5?MSPStoreType=image/gif&amp;s=5'
+       alt='Emirates Office Tower | 1.5 miles north-northeast | 1165 feet   (city rank: 3rd)'
+       title='Emirates Office Tower | 1.5 miles north-northeast | 1165 feet   (city rank: 3rd)'
+       width='495'
+       height='53' />
+  </subpod>
+  <states count='1'>
+   <state name='Show metric'
+       input='BuildingHierarchy:BuildingData__Show metric' />
+  </states>
+ </pod>
+ <pod title='Wikipedia page hits history'
+     scanner='Ordinal'
+     id='PopularityPod:WikipediaStatsData'
+     position='900'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext></plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22961a5981i337ii1c6200004i1ifee02ha39bii?MSPStoreType=image/gif&amp;s=5'
+       alt=''
+       title=''
+       width='496'
+       height='171' />
+  </subpod>
+  <states count='1'>
+   <state name='Linear scale'
+       input='PopularityPod:WikipediaStatsData__Linear scale' />
+  </states>
+ </pod>
+ <pod title='Notable buildings ranked by height'
+     scanner='Ordinal'
+     id='OrdinalRankings'
+     position='1000'
+     error='false'
+     numsubpods='1'
+     primary='true'>
+  <subpod title=''>
+   <plaintext>1 | Burj Khalifa | 2717 ft | 
+2 | Tokyo Sky Tree | 2080 ft | 
+3 | CN Tower | 1814 ft | 
+4 | Ostankino Tower | 1772 ft | 
+5 | Taipei 101 | 1670 ft | 
+(vertical ellipsis)</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22971a5981i337ii1c62000046d3ibe7a5f02f3a?MSPStoreType=image/gif&amp;s=5'
+       alt='1 | Burj Khalifa | 2717 ft | 
+2 | Tokyo Sky Tree | 2080 ft | 
+3 | CN Tower | 1814 ft | 
+4 | Ostankino Tower | 1772 ft | 
+5 | Taipei 101 | 1670 ft | 
+(vertical ellipsis)'
+       title='1 | Burj Khalifa | 2717 ft | 
+2 | Tokyo Sky Tree | 2080 ft | 
+3 | CN Tower | 1814 ft | 
+4 | Ostankino Tower | 1772 ft | 
+5 | Taipei 101 | 1670 ft | 
+(vertical ellipsis)'
+       width='315'
+       height='189' />
+  </subpod>
+  <states count='1'>
+   <state name='More'
+       input='OrdinalRankings__More' />
+  </states>
+  <infos count='1'>
+   <info>
+    <units count='1'>
+     <unit short='ft'
+         long='feet' />
+     <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP22981a5981i337ii1c62000031448hib5b5g25de?MSPStoreType=image/gif&amp;s=5'
+         width='71'
+         height='26' />
+    </units>
+   </info>
+  </infos>
+ </pod>
+ <assumptions count='1'>
+  <assumption type='SubCategory'
+      word='tallext'
+      template='Assuming &quot;${word}&quot; refers to ${desc1}. Use ${desc2} instead'
+      count='2'>
+   <value name='HighestPoint'
+       desc='height'
+       input='*DPClash.BuildingP.tallext-_*HighestPoint-' />
+   <value name='FloorCount'
+       desc='floors'
+       input='*DPClash.BuildingP.tallext-_*FloorCount-' />
+  </assumption>
+ </assumptions>
+ <warnings count='1'>
+  <spellcheck word='tallext'
+      suggestion='tallest'
+      text='Interpreting &quot;tallext&quot; as &quot;tallest&quot;' />
+ </warnings>
+ <sources count='3'>
+  <source url='http://www.wolframalpha.com/sources/BuildingDataSourceInformationNotes.html'
+      text='Building data' />
+  <source url='http://www.wolframalpha.com/sources/CountryDataSourceInformationNotes.html'
+      text='Country data' />
+  <source url='http://www.wolframalpha.com/sources/OpenStreetMapSourceInformationNotes.html'
+      text='Open street map' />
+ </sources>
+</queryresult>
