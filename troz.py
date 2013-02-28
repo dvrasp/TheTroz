@@ -9,6 +9,8 @@ except ImportError:
     import pickle
 
 import lib.spell
+import lib.test
+import lib.web
 import spells
 
 def ask(query, spellObjs, config, save):
@@ -33,12 +35,13 @@ if __name__ == "__main__":
 
     if not query or '-help' in query or '-?' in query:
         print >> sys.stderr, (
-            "Usage: %s [query]"
-            "   Example Queries:"
-            '       "What is the weather going to be like tomorrow for 21520?"'
-            '       "How many cups are in a quart?"'
-            '       "What is 12 + 421?"'
+            "Usage: %s [query]\n"
+            "   Example Queries:\n"
+            '       "What is the weather going to be like tomorrow for 21520?"\n'
+            '       "How many cups are in a quart?"\n'
+            '       "What is 12 + 421?"\n'
         )
+        sys.exit()
 
     if os.path.exists('save.db'):
         with open('save.db') as f:
@@ -46,7 +49,8 @@ if __name__ == "__main__":
     else:
         save = {}
 
-    print '[%s:%s] The Wizard of Troz Says: "%s"' % ask(query, spellObjs, config, save)
+    with lib.test.WebCapture():
+        print '[%s:%s] The Wizard of Troz Says: "%s"' % ask(query, spellObjs, config, save)
 
     with open('save.db', 'w') as f:
         pickle.dump(save, f)
