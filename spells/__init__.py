@@ -21,3 +21,4 @@ def collect_spells(root='spells'):
 collect_spells()
 
 ALL = dict(lib.spell.BaseSpell.collect())
+VALIDATED = dict(ALL)

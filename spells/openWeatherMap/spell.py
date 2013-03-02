@@ -206,6 +206,11 @@ class OpenWeatherMap(lib.spell.BaseSpell):
         ' 20:00:00',  # evening 2
     ]
 
+    config = {
+        'Weather.Location': str,
+        'Weather.Units': [str, 'metric', 'imperial']
+    }
+
     def incantation(self, query, config, state):
         result = ['']
 
@@ -228,7 +233,7 @@ class OpenWeatherMap(lib.spell.BaseSpell):
             query_loc = ' '.join(query_words[index+1:])
             del query_words[index:]
         else:
-            query_loc = config['Weather']['location']
+            query_loc = config['Weather.Location']
 
         query_words = set((word.rstrip("'s").lower() for word in query_words))
         query_words.intersection_update(self.offsetKeys)
@@ -260,7 +265,7 @@ class OpenWeatherMap(lib.spell.BaseSpell):
 
             data = self.fetch(
                 url,
-                get={'units': config['Weather']['units']},
+                get={'units': config['Weather.Units']},
                 format='json'
             )
             temperature, description = Forecast.humanTerms(data)
@@ -279,7 +284,7 @@ class OpenWeatherMap(lib.spell.BaseSpell):
 
         data = self.fetch(
             url,
-            get={'units': config['Weather']['units']},
+            get={'units': config['Weather.Units']},
             format='json'
         )
 

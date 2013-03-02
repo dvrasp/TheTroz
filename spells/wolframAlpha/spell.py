@@ -36,7 +36,9 @@ class WolframAlpha(lib.spell.BaseSpell):
         )
     """
     blacklist = "\s+(?:you|you're|your)\s+"
-    config = {'WolframAlpha': {'appID': str}}
+    config = {
+        'WolframAlpha.AppID': str
+    }
 
     def incantation(self, query, config, state):
         # For some reason, sometimes W|A returns blank data.
@@ -49,7 +51,7 @@ class WolframAlpha(lib.spell.BaseSpell):
                 'http://api.wolframalpha.com/v2/query',
                 get={
                     'input': query,
-                    'appid': config['WolframAlpha']['appID']
+                    'appid': config['WolframAlpha.AppID']
                 },
                 format='xml'
             )

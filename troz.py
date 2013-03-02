@@ -1,15 +1,14 @@
 import os
 import sys
-import configobj
 
 try:
     import cPickle as pickle
 except ImportError:
     import pickle
 
+import lib.config
 import lib.spell
 import lib.test
-import lib.web
 import spells
 
 
@@ -30,8 +29,8 @@ def ask(query, spell_objs, config, save):
 
 if __name__ == "__main__":
 
-    config = configobj.ConfigObj('settings.conf')
-    spell_objs = [spell() for spell in spells.ALL]
+    config = lib.config.load("settings.conf")
+    spell_objs = [spell() for spell in spells.VALIDATED]
     query = ' '.join(sys.argv[1:])
 
     if not query or '-help' in query or '-?' in query:
@@ -51,7 +50,7 @@ if __name__ == "__main__":
         save = {}
 
     with lib.test.WebCapture():
-        print ('[%s:%s] The Wizard of Troz Says: "%s"'
+        print ('[%s:%s] The Wizard of Troz Says: %s'
                % ask(query, spell_objs, config, save))
 
     with open('save.db', 'w') as f:
