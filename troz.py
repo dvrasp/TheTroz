@@ -1,10 +1,6 @@
 import os
 import sys
-
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+import json
 
 import lib.config
 import lib.spell
@@ -45,7 +41,7 @@ if __name__ == "__main__":
 
     if os.path.exists('save.db'):
         with open('save.db') as f:
-            save = pickle.load(f)
+            save = json.load(f)
     else:
         save = {}
 
@@ -54,4 +50,4 @@ if __name__ == "__main__":
                % ask(query, spell_objs, config, save))
 
     with open('save.db', 'w') as f:
-        pickle.dump(save, f)
+        json.dump(save, f)
