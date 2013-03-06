@@ -29,7 +29,7 @@ class Forecast(object):
             (11.18, 'BREEZY'),
             (15.65, 'WINDY'),
             (17.88, 'VERY WINDY'),
-            (float('inf'), 'DANGEROUSLY WINDY'),
+            (float('inf'), 'EMTREMELY WINDY'),
         ],
         'chance': [
             (20, 'slight chance of'),
@@ -38,10 +38,10 @@ class Forecast(object):
             (float('inf'), ''),
         ],
         'intensity': [
-            (0.76, 'VERY LIGHT'),
-            (7.62, 'LIGHT'),
-            (22.9, 'MODERATE'),
-            (float('inf'), 'HEAVY'),
+            (0.76, 'VERY LIGHTLY'),
+            (7.62, 'LIGHTLY'),
+            (22.9, 'MODERATELY'),
+            (float('inf'), 'HEAVILY'),
         ],
     }
 
@@ -90,7 +90,7 @@ class Forecast(object):
             for num, string in terms['intensity']:
                 if snow <= num:
                     if string:
-                        description.append(string + ' snow')
+                        description.append(string + ' snowing')
                     break
 
         if 'rain' in item:
@@ -98,7 +98,7 @@ class Forecast(object):
             for num, string in terms['intensity']:
                 if rain <= num:
                     if string:
-                        description.append(string + ' rain')
+                        description.append(string + ' raining')
                     break
 
         # Unfortunately, openWeatherMap doesn't
@@ -153,6 +153,7 @@ class Forecast(object):
 
 
 class OpenWeatherMap(lib.spell.BaseSpell):
+    """ Gets the current weather conditions and forecast """
     weight = 100
     pattern = r"""
         # What is the current weather?

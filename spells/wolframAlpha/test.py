@@ -28,14 +28,14 @@ class WolframAlpha(Shaman):
     def setUp(self):
         # Register URLs
 
-        self.config['WolframAlpha']['appID'] = 'test123'
+        self.config['WolframAlpha.AppID'] = 'test123'
 
         for question, answer, file in queries:
             self.web.route(
                 url='http://api.wolframalpha.com/v2/query',
                 get={
                     'input': question,
-                    'appid': self.config['WolframAlpha']['appID']
+                    'appid': self.config['WolframAlpha.AppID']
                 },
                 format='xml',
                 file=file

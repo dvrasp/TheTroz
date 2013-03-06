@@ -8,13 +8,13 @@ class OpenWeatherMap(Shaman):
         self.today(2013, 2, 22)
 
         # Set up config
-        self.config['Weather']['location'] = 'Accident, Maryland, USA'
-        self.config['Weather']['units'] = 'imperial'
+        self.config['Weather.Location'] = 'Accident, Maryland, USA'
+        self.config['Weather.Units'] = 'imperial'
 
         # Register URLs
         self.web.route(
             url='http://api.openweathermap.org/data/2.1/find/name',
-            get={'q': self.config['Weather']['location']},
+            get={'q': self.config['Weather.Location']},
             format='json',
             file='find_accident_maryland.json'
         )
@@ -28,14 +28,14 @@ class OpenWeatherMap(Shaman):
 
         self.web.route(
             url='http://api.openweathermap.org/data/2.1/weather/city/4363282',
-            get={'units': self.config['Weather']['units']},
+            get={'units': self.config['Weather.Units']},
             format='json',
             file='weather_accident_maryland.json'
         )
 
         self.web.route(
             url='http://api.openweathermap.org/data/2.2/forecast/city/4363282',
-            get={'units': self.config['Weather']['units']},
+            get={'units': self.config['Weather.Units']},
             format='json',
             file='forecast_accident_maryland.json'
         )

@@ -2,6 +2,7 @@ import lib.spell
 
 
 class DDG(lib.spell.BaseSpell):
+    """ Queries DuckDuckGo """
     weight = 100
     pattern = r"""
         # 1 + 1

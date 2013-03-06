@@ -3,6 +3,7 @@ import lib.spell
 
 
 class WolframAlpha(lib.spell.BaseSpell):
+    """ Queries WolframAlpha """
     weight = 75
     pattern = r"""
         # 1 + 1
