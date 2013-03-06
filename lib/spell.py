@@ -6,14 +6,11 @@ import requests
 import StringIO
 from xml.etree import ElementTree as ETree
 
+import lib.registry
 
-class TrackingMixin(object):
-    """
-    This mixin gives the class the ability to track all child subclasses
-    as they are defined
-    """
 
-    _registry = {}
+class BaseSpell(object):
+    """ As the name implies, this class provides a base functionality for spells.  """
 
     class __metaclass__(type):
         """
@@ -21,24 +18,9 @@ class TrackingMixin(object):
         creation. It first registers the subclass' info before
         passing control back to the normal flow
         """
-        def __init__(cls, name, bases, dict):
-            for base in bases:
-                cls._registry.setdefault(base.__name__, []).append((
-                    cls,
-                    os.path.realpath(os.path.split(inspect.getfile(cls))[0])
-                ))
-
-    @classmethod
-    def registered(cls):
-        """
-        :returns: a list of classes that have inherited from this base class
-        :rtype: ``list``
-        """
-        return cls._registry.get(cls.__name__, [])
-
-
-class BaseSpell(TrackingMixin):
-    """ As the name implies, this class provides a base functionality for spells.  """
+        def __init__(cls, name, bases, class_dict):
+            if name != 'BaseSpell':
+                lib.registry.register(spell=cls)
 
     #: How much weight / relevance should be assigned. Spells with
     #: larger weights are preferred over ones with smaller weights. Defaults
@@ -62,6 +44,7 @@ class BaseSpell(TrackingMixin):
     #: for this spell. The dictionary must be of the following format:
     #:
     #: .. code-block:: Python
+    #:
     #:    {
     #:        'key1': type1,
     #:        'key2': type2,
@@ -80,30 +63,13 @@ class BaseSpell(TrackingMixin):
     #: For example:
     #:
     #: .. code-block:: Python
+    #:
     #:    {
     #:        'security.mode': [str, 'high', 'medium', 'low', 'none']
     #:    }
     #:
     #: Dotted notation is used to specify sections and subvalues.
-    #: So the following configuration definition:
-    #:
-    #: .. code-block:: Python
-    #:    {
-    #:        'personal.name': str,
-    #:        'personal.age': int,
-    #:        'security.mode': str,
-    #:        'security.cypher': str
-    #:    }
-    #:
-    #: Would correspond to the following configuration file:
-    #:
-    #: .. code-block::
-    #:    [ personal ]
-    #:        name = ...
-    #:        age = ...
-    #:    [ security ]
-    #:        mode = ...
-    #:        cypher = ...
+    #: Nested values are not supported
     config = dict()
 
     #: :returns: date a object preset to today
@@ -117,6 +83,11 @@ class BaseSpell(TrackingMixin):
             StringIO.StringIO(request.text.encode('UTF-8'))
         )._root or ETree.ElementTree()
     }
+
+    def __init__(self):
+        self.pattern = re.compile(self.pattern, re.IGNORECASE | re.VERBOSE)
+        self.blacklist = re.compile(self.blacklist, re.IGNORECASE | re.VERBOSE)
+
 
     def fetch(self, url, post=None, get=None, format='raw'):
         """
@@ -168,10 +139,6 @@ class BaseSpell(TrackingMixin):
         except requests.exceptions.HTTPError:
             raise
 
-    def __init__(self):
-        self.pattern = re.compile(self.pattern, re.IGNORECASE | re.VERBOSE)
-        self.blacklist = re.compile(self.blacklist, re.IGNORECASE | re.VERBOSE)
-
     def parse(self, query):
         """
         Parses a query and returns the result consisting of three values:
@@ -196,16 +163,6 @@ class BaseSpell(TrackingMixin):
             else:
                 return self.weight, self, query[match.start():match.end()]
         return float('-inf'), self, ''
-
-    @classmethod
-    def collect(cls):
-        """
-        :returns: An iterator that yields the spells that are children of ``BaseSpell``
-        :rtype: ``iter``
-        """
-        for subclass, file in cls.registered():
-            if hasattr(subclass, 'incantation'):
-                yield subclass, file
 
     def incantation(self, query, config, state):
         """
