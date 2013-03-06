@@ -1,34 +1,42 @@
 import warnings
 import configobj
 import spells
+import lib.registry
 
 def load(fileName):
-    configObj = configobj.ConfigObj(fileName)
-    config = flatten(configObj)
+    """
+    Load and validate the configuration from a given file
+
+    :type fileName: str
+    :param fileName: The configuration file name to load
+
+    :rtype: ConfigObj
+    :return: A ConfigObj instance
+    """
+
+    config = configobj.ConfigObj(fileName)
     validate(config)
     return config
 
-def flatten(d):
-    newDict = dict()
-    for key, value in d.iteritems():
-        if isinstance(value, dict):
-            for key2, value2 in flatten(value).iteritems():
-                newDict['.'.join((key, key2))] = value2
-        else:
-            newDict[key] = value
-    return newDict
-
 def validate(config):
-    for spell in spells.ALL:
-        baseMsg = 'spell:%s is being disabled;' % spell
-        for key, value in spell.config.iteritems():
+    """
+    Inspect configuration and disable spells in which required configurations
+    are missing
+
+    :type config: dict
+    :param config: The deserialized config
+    """
+
+    for spell in lib.registry.all():
+        baseMsg = 'spell:%s is being disabled;' % spell['spell'].__name__
+        for key, value in spell['spell'].config.iteritems():
             if key not in config:
                 print (
                     '%s a required configuration is missing: "%s"' % (
                         baseMsg, key
                     )
                 )
-                del spells.VALIDATED[spell]
+                spell['enabled'] = False
                 break
             else:
                 configValue = config[key]
@@ -48,7 +56,7 @@ def validate(config):
                             baseMsg, key, expectedType, configValue
                         )
                     )
-                    del spells.VALIDATED[spell]
+                    spell['enabled'] = False
                     break
 
                 if configValue not in expectedValues:
@@ -57,4 +65,4 @@ def validate(config):
                             baseMsg, key, expectedValues
                         )
                     )
-                    del spells.VALIDATED[spell]
+                    spell['enabled'] = False
