@@ -1,6 +1,6 @@
 import warnings
-import configobj
 import spells
+import ConfigParser
 import lib.registry
 
 def load(fileName):
@@ -10,11 +10,14 @@ def load(fileName):
     :type fileName: str
     :param fileName: The configuration file name to load
 
-    :rtype: ConfigObj
-    :return: A ConfigObj instance
+    :rtype: dict
+    :return: The loaded configuration
     """
 
-    config = configobj.ConfigObj(fileName)
+    configObj = ConfigParser.ConfigParser()
+    configObj.optionxform = str # Keep case (default converts to lower case)
+    configObj.read([fileName])
+    config = dict(configObj.items('Config'))
     validate(config)
     return config
 
