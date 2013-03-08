@@ -29,7 +29,7 @@ class Forecast(object):
             (11.18, 'BREEZY'),
             (15.65, 'WINDY'),
             (17.88, 'VERY WINDY'),
-            (float('inf'), 'EMTREMELY WINDY'),
+            (float('inf'), 'EXTREMELY WINDY'),
         ],
         'chance': [
             (20, 'slight chance of'),
@@ -38,10 +38,10 @@ class Forecast(object):
             (float('inf'), ''),
         ],
         'intensity': [
-            (0.76, 'VERY LIGHTLY'),
-            (7.62, 'LIGHTLY'),
-            (22.9, 'MODERATELY'),
-            (float('inf'), 'HEAVILY'),
+            (0.76, 'VERY LIGHT'),
+            (7.62, 'LIGHT'),
+            (22.9, 'MODERATE'),
+            (float('inf'), 'HEAVY'),
         ],
     }
 
@@ -90,7 +90,7 @@ class Forecast(object):
             for num, string in terms['intensity']:
                 if snow <= num:
                     if string:
-                        description.append(string + ' snowing')
+                        description.append(string + ' snow')
                     break
 
         if 'rain' in item:
@@ -98,7 +98,7 @@ class Forecast(object):
             for num, string in terms['intensity']:
                 if rain <= num:
                     if string:
-                        description.append(string + ' raining')
+                        description.append(string + ' rain')
                     break
 
         # Unfortunately, openWeatherMap doesn't

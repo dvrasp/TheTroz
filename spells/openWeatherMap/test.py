@@ -47,14 +47,14 @@ class OpenWeatherMap(Shaman):
         "What will today's weather be like?"
     )
     def test_today(self, query):
-        # Run a test, check the output and state
-        output = """
+        # Run a test, check the result and state
+        expected = """
                 Curently, it's 23, CLOUDY and WINDY.
                 It looks like the evening of Fri, Feb 22 will be
                 CLOUDY, BREEZY and LIGHT rain,
                 becoming VERY LIGHT rain later on (high 33/low 23).
             """
-        self.assertLooksLike(self.query(query), output)
+        self.assertLooksLike(self.query(query), expected)
         self.assertEqual(self.state['Accident, Maryland, USA'], 4363282)
 
     @Shaman.generate(
@@ -63,8 +63,8 @@ class OpenWeatherMap(Shaman):
         "What will tomorrow's weather be like?"
     )
     def test_tomorrow(self, query):
-        # Run a test, check the output and state
-        output = """
+        # Run a test, check the result and state
+        expected = """
                 It looks like the morning of Sat, Feb 23 will be
                 CLOUDY and BREEZY, becoming SLIGHTLY WINDY and
                 VERY LIGHT rain later on (high 29/low 22).
@@ -74,7 +74,7 @@ class OpenWeatherMap(Shaman):
                 SLIGHTLY WINDY and LIGHT rain, becoming
                 VERY LIGHT rain later on (high 40/low 32).
             """
-        self.assertLooksLike(self.query(query), output)
+        self.assertLooksLike(self.query(query), expected)
 
     @Shaman.generate(
         "What is the weekend's weather",
@@ -82,8 +82,8 @@ class OpenWeatherMap(Shaman):
         "What will the weekend's weather be like?"
     )
     def test_weekend(self, query):
-        # Run a test, check the output and state
-        output = """
+        # Run a test, check the result and state
+        expected = """
                 It looks like the morning of Sat, Feb 23 will be
                 CLOUDY and BREEZY, becoming SLIGHTLY WINDY and
                 VERY LIGHT rain later on (high 29/low 22).
@@ -102,7 +102,7 @@ class OpenWeatherMap(Shaman):
                 WINDY and VERY LIGHT snow,
                 becoming CLEAR later on (high 35/low 26).
             """
-        self.assertLooksLike(self.query(query), output)
+        self.assertLooksLike(self.query(query), expected)
 
     @Shaman.generate(
         "What is Thursday's weather?",
@@ -110,8 +110,8 @@ class OpenWeatherMap(Shaman):
         "What will Thursday's weather be like?"
     )
     def test_thursday(self, query):
-        # Run a test, check the output and state
-        output = """
+        # Run a test, check the result and state
+        expected = """
                 It looks like the morning of Thu, Feb 28 will be CLOUDY,
                 WINDY and LIGHT snow, becoming VERY LIGHT
                 snow later on (high 26/low 26).
@@ -121,7 +121,7 @@ class OpenWeatherMap(Shaman):
                 VERY WINDY and LIGHT snow,
                 becoming WINDY later on (high 30/low 24).
             """
-        self.assertLooksLike(self.query(query), output)
+        self.assertLooksLike(self.query(query), expected)
 
     @Shaman.generate(
         "What is Thursday's weather for Dallas, Texas?",
@@ -129,8 +129,8 @@ class OpenWeatherMap(Shaman):
         "What will Thursday's weather be like in Dallas, Texas?"
     )
     def test_dallas(self, query):
-        # Run a test, check the output and state
-        output = """
+        # Run a test, check the result and state
+        expected = """
                 It looks like the morning of Thu,
                 Feb 28 will be CLOUDY, WINDY and LIGHT snow,
                 becoming VERY LIGHT snow later on (high 26/low 26).
@@ -140,5 +140,5 @@ class OpenWeatherMap(Shaman):
                 VERY WINDY and LIGHT snow,
                 becoming WINDY later on (high 30/low 24).
             """
-        self.assertLooksLike(self.query(query), output)
+        self.assertLooksLike(self.query(query), expected)
         self.assertEqual(self.state['Dallas, Texas'], 4363282)
