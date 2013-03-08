@@ -46,23 +46,23 @@ class DDG(Shaman):
 
     def test_george_washington(self):
         result = self.query("Who is George Washington?")
-        output = """
+        expected = """
             George Washington was one of the Founding
             Fathers of the United States, serving as
             the commander-in-chief of the Continental Army
             during the American Revolutionary War.
         """
-        self.assertLooksLike(result, output)
+        self.assertLooksLike(result, expected)
 
     def test_cookies(self):
         result = self.query("What are cookies?")
-        output = """
+        expected = """
             A small, usually flat and crisp cake made from sweetened dough.
         """
-        self.assertLooksLike(result, output)
+        self.assertLooksLike(result, expected)
 
     def test_13_plus_14(self):
-        # Run a test, check the output and state
+        # Run a test, check the result and state
         result = self.query("What is 13 + 14?")
-        output = "13 + 14 = 27"
-        self.assertLooksLike(result, output)
+        expected = "13 + 14 = 27"
+        self.assertLooksLike(result, expected)
