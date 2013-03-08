@@ -1,0 +1,649 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2. Spell Development Tutorial &mdash; The Wizard Of Troz v1.0.0 - &#34;Yakko&#34; documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     'v1.0.0 - &#34;Yakko&#34;',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="The Wizard Of Troz v1.0.0 - &#34;Yakko&#34; documentation" href="index.html" />
+    <link rel="next" title="3. API" href="api.html" />
+    <link rel="prev" title="1. Documentation of Included Spells" href="spell_docs.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="3. API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="spell_docs.html" title="1. Documentation of Included Spells"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">The Wizard Of Troz v1.0.0 - &#34;Yakko&#34; documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="spell-development-tutorial">
+<span id="dev-tutorial"></span><h1>2. Spell Development Tutorial<a class="headerlink" href="#spell-development-tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A &#8220;Spell&#8221;, in <a class="reference external" href="http://thetroz.com">The Wizard Of Troz</a> vernacular
+is a module that extends the core functionality of Troz.
+Other projects might call them plug-ins, extensions, or add-ons.</p>
+</div>
+<p>This guide will walk you through the process of creating your first spell.
+In order to use a real life example, we will be re-creating the &#8220;Awesome&#8221; spell
+that is already part of the standard Troz distribution.</p>
+<div class="section" id="planning">
+<h2>2.1. Planning<a class="headerlink" href="#planning" title="Permalink to this headline">¶</a></h2>
+<p>For this spell we will be leveraging the <a class="reference external" href="http://icndb.com">Internet Chuck Noris Database</a>
+(because really, where else would you look for awesome but Chuck Noris?)</p>
+<div class="section" id="api-research">
+<h3>2.1.1. API Research<a class="headerlink" href="#api-research" title="Permalink to this headline">¶</a></h3>
+<p>Looking at <a class="reference external" href="http://www.icndb.com/api/">http://www.icndb.com/api/</a> , we see that the API URL is
+<a class="reference external" href="http://api.icndb.com/jokes/random">http://api.icndb.com/jokes/random</a> and the following get
+parameters are accepted (there are others but we&#8217;ll only be
+using the following two):</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">firstName</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">lastName</span></tt></li>
+</ul>
+</div></blockquote>
+<p>Now we can do a quick test run of the API:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="gp">[user@host]$</span> curl <span class="s2">&quot;http://api.icndb.com/jokes/random&quot;</span>
+<span class="go">{ &quot;type&quot;: &quot;success&quot;, &quot;value&quot;: { &quot;id&quot;: 326, &quot;joke&quot;: &quot;As an infant, Chuck Norris&#39; parents gave him a toy hammer. He gave the world Stonehenge.&quot;, &quot;categories&quot;: [] } }</span>
+</pre></div>
+</div>
+<p>As per the API, we can supply <tt class="docutils literal"><span class="pre">firstName</span></tt> and <tt class="docutils literal"><span class="pre">lastName</span></tt> to replace <cite>Chuck Norris</cite> with
+a custom name</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="gp">[user@host]$</span> curl <span class="s2">&quot;http://api.icndb.com/jokes/random?firstName=Peter&amp;lastName=Naudus&quot;</span>
+<span class="go">{ &quot;type&quot;: &quot;success&quot;, &quot;value&quot;: { &quot;id&quot;: 476, &quot;joke&quot;: &quot;Peter Naudus doesn&#39;t need a debugger, he just stares down the bug until the code confesses.&quot;, &quot;categories&quot;: [&quot;nerdy&quot;] } }</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accepted-queries">
+<h3>2.1.2. Accepted Queries<a class="headerlink" href="#accepted-queries" title="Permalink to this headline">¶</a></h3>
+<p>Next, after determining the web service requests that will need to be made,
+we need to determine what query strings will trigger this spell.</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>How awesome is Peter Naudus?</cite></li>
+<li><cite>How awesome is The Batman?</cite></li>
+</ul>
+</div></blockquote>
+<p>We can then use this to create the following regular expression:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;How awesome is ([^?]+)\?*&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="introduction-to-spell-writing">
+<h2>2.2. Introduction to Spell Writing<a class="headerlink" href="#introduction-to-spell-writing" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have everything mapped out, we can begin coding. First we start with
+a basic template. There are two things that every spell must comply with:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Each spell must exist in its own module under <tt class="docutils literal"><span class="pre">spells</span></tt>. This means that it must be in its own directory and be importable (have an <tt class="docutils literal"><span class="pre">__init__.py</span></tt> file among other things)</li>
+<li>Spells must inherit from <tt class="docutils literal"><span class="pre">lib.spell.BaseSpell</span></tt></li>
+</ol>
+</div></blockquote>
+<div class="section" id="structure">
+<h3>2.2.1. Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">lib.spell</span>
+
+<span class="k">class</span> <span class="nc">Awesome</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">spell</span><span class="o">.</span><span class="n">BaseSpell</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; docstring &quot;&quot;&quot;</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="s">r&quot;&quot;&quot;</span>
+<span class="s">        How\s+</span>
+<span class="s">        awesome\s+</span>
+<span class="s">        is\s+</span>
+<span class="s">        ([^?]+)</span>
+<span class="s">        \?*</span>
+<span class="s">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">incantation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">query</span><span class="p">,</span> <span class="n">state</span>
+</pre></div>
+</div>
+<p>We&#8217;ll go through each of these settings:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">docstring</span></tt>: This is a short description of what the spell does</li>
+<li><tt class="docutils literal"><span class="pre">weight</span></tt>: If a query matches more than one spell, they are called in order of their weight. Our pattern will be fairly specific so we&#8217;ll give a relatively large weight of <tt class="docutils literal"><span class="pre">100</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">pattern</span></tt>: This string will be compiled into a regular expression and will be used to determine if a query matches or not. The regular expression is compiled with the <tt class="docutils literal"><span class="pre">VERBOSE</span></tt> flag which is why we needed to put in the <tt class="docutils literal"><span class="pre">\s+</span></tt>&#8216;s (which makes our regular expression more robust anyways)</li>
+<li><tt class="docutils literal"><span class="pre">config</span></tt>: This defines required configurations. We don&#8217;t have any at the moment, so we&#8217;ll leave this empty</li>
+<li><tt class="docutils literal"><span class="pre">incantation</span></tt>: This is the function that is called when the spell is executed. We&#8217;ll go over that next</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="incantation">
+<h3>2.2.2. Incantation<a class="headerlink" href="#incantation" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have the preliminary details out of the way we can get to work.</p>
+<p>The incantation takes three arguments (not including <cite>self</cite>):</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">query</span></tt>: If the spell&#8217;s pattern has groups (which ours does), then <tt class="docutils literal"><span class="pre">query</span></tt> will be the first group found. If not, it will the user&#8217;s query, verbatim</li>
+<li><tt class="docutils literal"><span class="pre">config</span></tt>: The user&#8217;s configuration deserialized into a dictionary</li>
+<li><tt class="docutils literal"><span class="pre">state</span></tt>: An object containing the previously saved state or <tt class="docutils literal"><span class="pre">None</span></tt> if there was no previously saved state</li>
+</ul>
+</div></blockquote>
+<p>Then, the incantation must return a tuple containing two items:</p>
+<blockquote>
+<div><ul class="simple">
+<li>A string containing the spell&#8217;s response or <tt class="docutils literal"><span class="pre">None</span></tt> if the spell was unsuccessful</li>
+<li>The spell&#8217;s state which will be persisted across sessions. This object must be serializable to JSON</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="coding-your-first-spell">
+<h2>2.3. Coding your First Spell<a class="headerlink" href="#coding-your-first-spell" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have the boilerplate code in place, we can create the incantation code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">lib.spell</span>
+
+<span class="k">class</span> <span class="nc">Awesome</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">spell</span><span class="o">.</span><span class="n">BaseSpell</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Ask to see just how awesome someone is &quot;&quot;&quot;</span>
+
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">incantation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+
+        <span class="c"># Take the query (for example &quot;Peter Naudus&quot;) and split it</span>
+        <span class="c"># Into a first and last name</span>
+        <span class="n">first</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+
+        <span class="c"># Fetch a random joke from ICNDB, see below</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span>
+            <span class="s">&#39;http://api.icndb.com/jokes/random&#39;</span><span class="p">,</span>
+            <span class="n">get</span><span class="o">=</span><span class="p">{</span>
+                <span class="s">&#39;firstName&#39;</span><span class="p">:</span> <span class="n">first</span><span class="p">,</span>
+                <span class="s">&#39;lastName&#39;</span><span class="p">:</span> <span class="n">last</span>
+            <span class="p">},</span>
+            <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;success&#39;</span><span class="p">:</span>
+            <span class="c"># Success, return joke and state</span>
+            <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">][</span><span class="s">&#39;joke&#39;</span><span class="p">],</span> <span class="n">state</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># Return None to signify unsuccessful attempt</span>
+            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="n">state</span>
+</pre></div>
+</div>
+<div class="section" id="lib-spell-basespell-fetch">
+<h3>2.3.1. lib.spell.BaseSpell.fetch<a class="headerlink" href="#lib-spell-basespell-fetch" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">fetch</span></tt> function is the only new piece that we haven&#8217;t gone over. This method takes
+four arguments (but two are mutually exclusive):</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">url</span></tt>: The base URL of the web service to query</li>
+<li><tt class="docutils literal"><span class="pre">get</span></tt>: A dictionary that is used to build the query string. Cannot be used with <tt class="docutils literal"><span class="pre">post</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">post</span></tt>: A dictionary that is used to build the post data. Cannot be used with <tt class="docutils literal"><span class="pre">get</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">format</span></tt>: Instructs <tt class="docutils literal"><span class="pre">fetch</span></tt> on how to decode the response. Valid values are: <tt class="docutils literal"><span class="pre">json</span></tt>, <tt class="docutils literal"><span class="pre">xml</span></tt>, and <tt class="docutils literal"><span class="pre">raw</span></tt></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="fire-it-up">
+<h3>2.3.2. Fire it up!<a class="headerlink" href="#fire-it-up" title="Permalink to this headline">¶</a></h3>
+<p>Finally we can test out our new spell</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="gp">[user@host]$</span> python troz.py <span class="s2">&quot;How awesome is The Batman?&quot;</span>
+<span class="go">That&#39;s not The Batman doing push-ups -- that&#39;s The Batman moving the Earth away from the path of a deadly asteroid.</span>
+</pre></div>
+</div>
+<p>Hurray it works!</p>
+</div>
+<div class="section" id="bonus-see-it-listed">
+<h3>2.3.3. Bonus: See it listed<a class="headerlink" href="#bonus-see-it-listed" title="Permalink to this headline">¶</a></h3>
+<p>Now that we&#8217;ve created out spell, we can see that it has automatically be added to the list of available spells
+and our docstring is used as the spell&#8217;s description</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="gp">[user@host]$</span> python troz.py --spell-list
+<span class="go">The following spells are currently installed:</span>
+<span class="go"> * Awesome --  Ask to see just how awesome someone is</span>
+<span class="go"> * DDG --  Queries DuckDuckGo</span>
+<span class="go"> * OpenWeatherMap --  Gets the current weather conditions and forecast</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="introduction-to-testing-with-shaman">
+<h2>2.4. Introduction to Testing with Shaman<a class="headerlink" href="#introduction-to-testing-with-shaman" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have the spell coded up, let&#8217;s put together some regression tests. This will allow
+us to quickly test any new changes and see if we&#8217;ve broken anything.</p>
+<div class="section" id="enter-the-shaman">
+<h3>2.4.1. Enter the Shaman<a class="headerlink" href="#enter-the-shaman" title="Permalink to this headline">¶</a></h3>
+<p>Just as <tt class="docutils literal"><span class="pre">lib.spell.BaseSpell</span></tt> provides a framework to create spells, Troz
+also has <tt class="docutils literal"><span class="pre">lib.test.Shaman</span></tt> which is a thin wrapper that sits on top of
+<tt class="docutils literal"><span class="pre">unittest2</span></tt>.</p>
+<p>Like with the spell, there are two things that every test must comply with:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>The test must exist in the same module as its corresponding spell</li>
+<li>Tests must inherit from <tt class="docutils literal"><span class="pre">lib.test.Shaman</span></tt></li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Currently, Troz only supports one test class per spell
+(although one class can have many sub-tests)</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>2.4.2. Structure<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Just as with the spell, we&#8217;ll start with a bare-bones class and then
+go back and fill in the details</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">lib.test</span>
+
+<span class="k">class</span> <span class="nc">Awesome</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">Shaman</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">route</span><span class="p">(</span> <span class="o">...</span> <span class="p">)</span>                  <span class="c">#1</span>
+
+    <span class="k">def</span> <span class="nf">test_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                          <span class="c">#2</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span> <span class="o">...</span> <span class="p">)</span>             <span class="c">#3</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="o">...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertLooksLike</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span> <span class="c">#4</span>
+</pre></div>
+</div>
+<p>We&#8217;ll go through the main points of interest:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">self.web.route(...)</span></tt></dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">lib.test.Shaman.web.route</span></tt>, like it&#8217;s sibling <tt class="docutils literal"><span class="pre">lib.spell.BaseSpell.fetch</span></tt>, takes mostly the same arguments (<tt class="docutils literal"><span class="pre">url</span></tt>, <tt class="docutils literal"><span class="pre">get</span></tt>, <tt class="docutils literal"><span class="pre">post</span></tt>, and <tt class="docutils literal"><span class="pre">format</span></tt>), with one additional one: <tt class="docutils literal"><span class="pre">file</span></tt>.</li>
+<li>The <tt class="docutils literal"><span class="pre">file</span></tt> argument must point to an existing file in the <tt class="docutils literal"><span class="pre">test_data</span></tt>, under the spell&#8217;s module directory</li>
+<li>It intercepts requests made to the spell&#8217;s <tt class="docutils literal"><span class="pre">fetch</span></tt>, looking at the arguments being passed.</li>
+<li>While intercepting, if it finds a route with the same arguments , it returns the contents of the file attached to the route. If no matching route is found, an error is raised</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">test_1</span></tt>. All test function names must be start with the <tt class="docutils literal"><span class="pre">test_</span></tt> prefix</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">self.query(...)</span></tt>. This executes the spell under test and returns the result</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">self.assertLooksLike(...)</span></tt>. This is very similar to unittest2&#8217;s <tt class="docutils literal"><span class="pre">assertEqual</span></tt>, except that it ignores differences in spacing and case</p>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="capture-the-magic">
+<h3>2.4.3. Capture The Magic<a class="headerlink" href="#capture-the-magic" title="Permalink to this headline">¶</a></h3>
+<p>Trying to test a spell like <tt class="docutils literal"><span class="pre">awesome</span></tt> raises a couple challenges:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Since the response is random, it&#8217;s difficult to predict what the spell will return</li>
+<li>An Internet connections is required (can&#8217;t test it off-line)</li>
+</ol>
+</div></blockquote>
+<p>In order to work around these limitations, troz has a <tt class="docutils literal"><span class="pre">--capture</span></tt> flag
+which will print out calls to <tt class="docutils literal"><span class="pre">lib.spell.BaseSpell.fetch</span></tt> and then save
+the output to a temporary file.</p>
+<p>We&#8217;ll run two different queries and capture the results:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="gp">[user@host]$</span> python troz.py --capture <span class="s2">&quot;How awesome is Peter Naudus?&quot;</span>
+<span class="go">url: http://api.icndb.com/jokes/random get: {&#39;firstName&#39;: &#39;Peter&#39;, &#39;lastName&#39;: &#39;Naudus&#39;} Output saved to /tmp/tmpG1pKIW</span>
+<span class="go">Peter Naudus invented black. In fact, he invented the entire spectrum of visible light. Except pink. Tom Cruise invented pink.</span>
+
+<span class="gp">[user@host]$</span> python troz.py --capture <span class="s2">&quot;How awesome is Chuck Norris?&quot;</span>
+<span class="go">url: http://api.icndb.com/jokes/random get: {&#39;firstName&#39;: &#39;Chuck&#39;, &#39;lastName&#39;: &#39;Norris&#39;} Output saved to /tmp/tmpImni3o</span>
+<span class="go">The Manhattan Project was not intended to create nuclear weapons, it was meant to recreate the destructive power in a Chuck Norris Roundhouse Kick. They didn&#39;t even come close.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="coding-up-your-first-test">
+<h2>2.5. Coding up Your First Test<a class="headerlink" href="#coding-up-your-first-test" title="Permalink to this headline">¶</a></h2>
+<p>Now we&#8217;re ready to code up our first test!</p>
+<p>The first thing we&#8217;ll do is copy over the saved capture files to the <tt class="docutils literal"><span class="pre">test_data</span></tt> directory so that we can load them
+via the <tt class="docutils literal"><span class="pre">route</span></tt> helper. We&#8217;ll name the files something meaningful and with a <tt class="docutils literal"><span class="pre">.json</span></tt> extension (since there is JSON
+data inside).</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="gp">[user@host]$</span> mkdir spells/awesome/test_data
+<span class="gp">[user@host]$</span> mv /tmp/tmpG1pKIW spells/awesome/test_data/peter_naudus.json
+<span class="gp">[user@host]$</span> mv /tmp/tmpImni3o spells/awesome/test_data/chuck_norris.json
+</pre></div>
+</div>
+<p>Now we&#8217;ll use the information returned by the capture session to build our test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">lib.test</span>
+
+<span class="k">class</span> <span class="nc">Awesome</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">Shaman</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Register URL for &quot;How awesome is Peter Naudus?&quot; query</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">route</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s">&#39;http://api.icndb.com/jokes/random&#39;</span><span class="p">,</span>
+            <span class="n">get</span><span class="o">=</span><span class="p">{</span>
+                <span class="s">&#39;firstName&#39;</span><span class="p">:</span> <span class="s">&#39;Peter&#39;</span><span class="p">,</span>
+                <span class="s">&#39;lastName&#39;</span><span class="p">:</span> <span class="s">&#39;Naudus&#39;</span>
+            <span class="p">},</span>
+            <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">,</span>
+            <span class="nb">file</span><span class="o">=</span><span class="s">&#39;peter_naudus.json&#39;</span>
+        <span class="p">)</span>
+
+        <span class="c"># Register URL for &quot;How awesome is Chuck Norris?&quot; query</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">route</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s">&#39;http://api.icndb.com/jokes/random&#39;</span><span class="p">,</span>
+            <span class="n">get</span><span class="o">=</span><span class="p">{</span>
+                <span class="s">&#39;firstName&#39;</span><span class="p">:</span> <span class="s">&#39;Chuck&#39;</span><span class="p">,</span>
+                <span class="s">&#39;lastName&#39;</span><span class="p">:</span> <span class="s">&#39;Norris&#39;</span>
+            <span class="p">},</span>
+            <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">,</span>
+            <span class="nb">file</span><span class="o">=</span><span class="s">&#39;chuck_norris.json&#39;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_peter_naudus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;How awesome is Peter Naudus?&quot;</span><span class="p">)</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">            Peter Naudus invented black. In fact, he invented</span>
+<span class="s">            the entire spectrum of visible light. Except pink.</span>
+<span class="s">            Tom Cruise invented pink.</span>
+<span class="s">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertLooksLike</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_chuck_norris</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;How awesome is Chuck Norris?&quot;</span><span class="p">)</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">            The Manhattan Project was not intended to create</span>
+<span class="s">            nuclear weapons, it was meant to recreate the</span>
+<span class="s">            destructive power in a Chuck Norris Roundhouse</span>
+<span class="s">            Kick. They didn&#39;t even come close.</span>
+<span class="s">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertLooksLike</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can kick off the test by calling <tt class="docutils literal"><span class="pre">troz.py</span></tt> with the <tt class="docutils literal"><span class="pre">--test</span></tt> flag.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="gp">[user@host]$</span> python troz.py --test
+<span class="go">test_chuck_norris (test.Awesome) ... ok</span>
+<span class="go">test_peter_naudus (test.Awesome) ... ok</span>
+</pre></div>
+</div>
+<p>Sweet!</p>
+<div class="section" id="bonus-x2-see-the-info">
+<h3>2.5.1. Bonus x2: See the info<a class="headerlink" href="#bonus-x2-see-the-info" title="Permalink to this headline">¶</a></h3>
+<p>After we coded up the spell we saw that the spell was automatically listed and the docstring used
+as the description. Now that we have a test in place, we can view the details of this spell by
+calling <tt class="docutils literal"><span class="pre">troz.py</span></tt> with the <tt class="docutils literal"><span class="pre">--spell-info</span></tt> flag.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="gp">[user@host]$</span> python troz.py --spell-info awesome
+<span class="go">  * Name: Awesome</span>
+<span class="go">  * Description: Ask to see just how awesome someone is</span>
+<span class="go">  * Required configs: None</span>
+<span class="go">  * Example usage:</span>
+<span class="go">      &gt;&gt;&gt; How awesome is Peter Naudus?</span>
+<span class="go">      ... Peter Naudus invented black. In fact, he invented the entire</span>
+<span class="go">          spectrum of visible light. Except pink. Tom Cruise invented</span>
+<span class="go">          pink.</span>
+<span class="go">      &gt;&gt;&gt; How awesome is Chuck Norris?</span>
+<span class="go">      ... The Manhattan Project was not intended to create nuclear</span>
+<span class="go">          weapons, it was meant to recreate the destructive power in a</span>
+<span class="go">          Chuck Norris Roundhouse Kick. They didn&#39;t even come close.</span>
+</pre></div>
+</div>
+<p>Not only has the description been loaded from the spell, but the tests are automatically
+extracted and used as documentation.</p>
+</div>
+</div>
+<div class="section" id="using-configurations">
+<h2>2.6. Using Configurations<a class="headerlink" href="#using-configurations" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a (literally) awesome spell coded up and tested, let&#8217;s add an enhancement.
+Instead of asking &#8220;How awesome is Peter Naudus?&#8221;, I&#8217;d like to ask, &#8220;How awesome am I?&#8221;. Then
+the spell could load up my name from the configuration file. This is a simple change but
+we&#8217;ll walk through each step for clarity&#8217;s sake.</p>
+<div class="section" id="step-1-change-the-regular-expression">
+<h3>2.6.1. Step 1: Change the regular expression<a class="headerlink" href="#step-1-change-the-regular-expression" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Old pattern</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="s">r&quot;&quot;&quot;</span>
+<span class="s">    How\s+</span>
+<span class="s">    awesome\s+</span>
+<span class="s">    (?:is|am)\s+</span>
+<span class="s">    ([^?]+)</span>
+<span class="s">    \?*</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="c"># New pattern</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="s">r&quot;&quot;&quot;</span>
+<span class="s">    How\s+</span>
+<span class="s">    awesome\s+</span>
+<span class="s">    (?:is|am)\s+</span>
+<span class="s">    ([^?]+)</span>
+<span class="s">    \?*</span>
+<span class="s">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-2-define-the-required-configurations">
+<h3>2.6.2. Step 2: Define the required configurations<a class="headerlink" href="#step-2-define-the-required-configurations" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;ll store the first name in the config as <tt class="docutils literal"><span class="pre">personal.firstName</span></tt> and the
+last name as <tt class="docutils literal"><span class="pre">personal.lastName</span></tt>. Since both of these values will be strings
+we&#8217;ll define the config like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Awesome</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">spell</span><span class="o">.</span><span class="n">BaseSpell</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;Personal.FirstName&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s">&#39;Personal.LastName&#39;</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>Now if view the spell&#8217;s info again, we&#8217;ll see the required configs listed</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="gp">[user@host]$</span> python troz.py --spell-info awesome
+<span class="go">  * Name: Awesome</span>
+<span class="go">  * Description: Ask to see just how awesome someone is</span>
+<span class="go">  * Required configs:</span>
+<span class="go">      - Personal.FirstName</span>
+<span class="go">      - Personal.LastName</span>
+<span class="go">  ...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-3-update-the-code">
+<h3>2.6.3. Step 3: Update the code<a class="headerlink" href="#step-3-update-the-code" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">incantation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="n">first</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">first</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;I&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">last</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s">&#39;Personal.FirstName&#39;</span><span class="p">]</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s">&#39;Personal.LastName&#39;</span><span class="p">]</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span>
+        <span class="s">&#39;http://api.icndb.com/jokes/random&#39;</span><span class="p">,</span>
+        <span class="n">get</span><span class="o">=</span><span class="p">{</span>
+            <span class="s">&#39;firstName&#39;</span><span class="p">:</span> <span class="n">first</span><span class="p">,</span>
+            <span class="s">&#39;lastName&#39;</span><span class="p">:</span> <span class="n">last</span>
+        <span class="p">},</span>
+        <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;success&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">][</span><span class="s">&#39;joke&#39;</span><span class="p">],</span> <span class="n">state</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="n">state</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-4-update-the-test">
+<h3>2.6.4. Step 4: Update the test<a class="headerlink" href="#step-4-update-the-test" title="Permalink to this headline">¶</a></h3>
+<p>When running the test, we don&#8217;t know for sure what the user will have in their
+configuration file, so during the <tt class="docutils literal"><span class="pre">setUp</span></tt>, we&#8217;ll provide our own config values:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="o">...</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;Personal.FirstName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;Peter&#39;</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;Personal.LastName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;Naudus&#39;</span>
+ <span class="o">...</span>
+</pre></div>
+</div>
+<p>To add the extra test, we could simply duplicate the <tt class="docutils literal"><span class="pre">test_peter_naudus</span></tt> function
+and rename it as <tt class="docutils literal"><span class="pre">test_me</span></tt> and change the input.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">...</span>
+
+ <span class="k">def</span> <span class="nf">test_me</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;How awesome am I?&quot;</span><span class="p">)</span>
+     <span class="n">expected</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">         Peter Naudus invented black. In fact, he invented</span>
+<span class="s">         the entire spectrum of visible light. Except pink.</span>
+<span class="s">         Tom Cruise invented pink.</span>
+<span class="s">     &quot;&quot;&quot;</span>
+
+ <span class="k">def</span> <span class="nf">test_peter_naudus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;How awesome is Peter Naudus?&quot;</span><span class="p">)</span>
+     <span class="n">expected</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">         Peter Naudus invented black. In fact, he invented</span>
+<span class="s">         the entire spectrum of visible light. Except pink.</span>
+<span class="s">         Tom Cruise invented pink.</span>
+<span class="s">     &quot;&quot;&quot;</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>However, then we&#8217;re just duplicating code. <tt class="docutils literal"><span class="pre">lib.test.Shaman</span></tt> provides a generate
+decorator which allows us to group these two test functions together. It will generate
+two new test cases one for each of the inputs, passing the input as the function&#8217;s
+<tt class="docutils literal"><span class="pre">question</span></tt> argument.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">...</span>
+
+ <span class="n">lib</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">Shaman</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s">&quot;How awesome am I?&quot;</span><span class="p">,</span> <span class="s">&quot;How awesome is Peter Naudus?&quot;</span><span class="p">)</span>
+ <span class="k">def</span> <span class="nf">test_peter_naudus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
+     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+     <span class="n">expected</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">         Peter Naudus invented black. In fact, he invented</span>
+<span class="s">         the entire spectrum of visible light. Except pink.</span>
+<span class="s">         Tom Cruise invented pink.</span>
+<span class="s">     &quot;&quot;&quot;</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>That&#8217;s all folks!</p>
+<p>Now go forth and build your own spells!</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">2. Spell Development Tutorial</a><ul>
+<li><a class="reference internal" href="#planning">2.1. Planning</a><ul>
+<li><a class="reference internal" href="#api-research">2.1.1. API Research</a></li>
+<li><a class="reference internal" href="#accepted-queries">2.1.2. Accepted Queries</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#introduction-to-spell-writing">2.2. Introduction to Spell Writing</a><ul>
+<li><a class="reference internal" href="#structure">2.2.1. Structure</a></li>
+<li><a class="reference internal" href="#incantation">2.2.2. Incantation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#coding-your-first-spell">2.3. Coding your First Spell</a><ul>
+<li><a class="reference internal" href="#lib-spell-basespell-fetch">2.3.1. lib.spell.BaseSpell.fetch</a></li>
+<li><a class="reference internal" href="#fire-it-up">2.3.2. Fire it up!</a></li>
+<li><a class="reference internal" href="#bonus-see-it-listed">2.3.3. Bonus: See it listed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#introduction-to-testing-with-shaman">2.4. Introduction to Testing with Shaman</a><ul>
+<li><a class="reference internal" href="#enter-the-shaman">2.4.1. Enter the Shaman</a></li>
+<li><a class="reference internal" href="#id1">2.4.2. Structure</a></li>
+<li><a class="reference internal" href="#capture-the-magic">2.4.3. Capture The Magic</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#coding-up-your-first-test">2.5. Coding up Your First Test</a><ul>
+<li><a class="reference internal" href="#bonus-x2-see-the-info">2.5.1. Bonus x2: See the info</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-configurations">2.6. Using Configurations</a><ul>
+<li><a class="reference internal" href="#step-1-change-the-regular-expression">2.6.1. Step 1: Change the regular expression</a></li>
+<li><a class="reference internal" href="#step-2-define-the-required-configurations">2.6.2. Step 2: Define the required configurations</a></li>
+<li><a class="reference internal" href="#step-3-update-the-code">2.6.3. Step 3: Update the code</a></li>
+<li><a class="reference internal" href="#step-4-update-the-test">2.6.4. Step 4: Update the test</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="spell_docs.html"
+                        title="previous chapter">1. Documentation of Included Spells</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">3. API</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/dev_tutorial.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="3. API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="spell_docs.html" title="1. Documentation of Included Spells"
+             >previous</a> |</li>
+        <li><a href="index.html">The Wizard Of Troz v1.0.0 - &#34;Yakko&#34; documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Peter Naudus, et al.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
