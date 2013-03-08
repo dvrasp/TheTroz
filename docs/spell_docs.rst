@@ -42,17 +42,17 @@ Dunno --  When all else fails, make up a random excuse
   * **Required configs**: ``None``
   * **Example usage**:
 
+    * ``floopdy whoopdy doobedo``
+
+      * Oh dear, Your/our computer(s) had suffered a memory leak, and we are waiting for them to be topped up.
+
     * ``supercalifragilisticexpialidocious``
 
-      * Oh snap, Support staff hung over, send aspirin and come back LATER.
+      * Drat! Support staff hung over, send aspirin and come back LATER.
 
     * ``scooby dooby doo``
 
-      * I beg you pardon, short leg on process table
-
-    * ``floopdy whoopdy doobedo``
-
-      * Oh snap, Your/our computer(s) had suffered a memory leak, and we are waiting for them to be topped up.
+      * Oh dear, short leg on process table
 
 
 OpenWeatherMap --  Gets the current weather conditions and forecast 
@@ -63,12 +63,12 @@ OpenWeatherMap --  Gets the current weather conditions and forecast
       - ``Weather.Location``
   * **Example usage**:
 
-    * ``What will today's weather be like?``
+    * ``What is today's forecast?``
 
       * Curently, it's 23, CLOUDY and WINDY. 
       * It looks like the evening of Fri, Feb 22 will be CLOUDY, BREEZY and LIGHT rain, becoming VERY LIGHT rain later on (high 33/low 23). 
 
-    * ``What is Thursday's weather?``
+    * ``What is Thursday's weather for Dallas, Texas?``
 
       * It looks like the morning of Thu, Feb 28 will be CLOUDY, WINDY and LIGHT snow, becoming VERY LIGHT snow later on (high 26/low 26). The afternoon will be CLOUDY, WINDY and LIGHT snow (high 27/low 24). By the evening, the weather will turn CLOUDY, VERY WINDY and LIGHT snow, becoming WINDY later on (high 30/low 24). 
 
@@ -76,7 +76,7 @@ OpenWeatherMap --  Gets the current weather conditions and forecast
 
       * It looks like the morning of Sat, Feb 23 will be CLOUDY and BREEZY, becoming SLIGHTLY WINDY and VERY LIGHT rain later on (high 29/low 22). The afternoon will be CLOUDY, SLIGHTLY WINDY and LIGHT rain (high 35/low 27). By the evening, the weather will turn CLOUDY, SLIGHTLY WINDY and LIGHT rain, becoming VERY LIGHT rain later on (high 40/low 32). 
 
-    * ``What is the weekend's weather``
+    * ``What will the weekend's weather be like?``
 
       * It looks like the morning of Sat, Feb 23 will be CLOUDY and BREEZY, becoming SLIGHTLY WINDY and VERY LIGHT rain later on (high 29/low 22). The afternoon will be CLOUDY, SLIGHTLY WINDY and LIGHT rain (high 35/low 27). By the evening, the weather will turn CLOUDY, SLIGHTLY WINDY and LIGHT rain, becoming VERY LIGHT rain later on (high 40/low 32). 
       * It looks like the morning of Sun, Feb 24 will be CLOUDY, SLIGHTLY WINDY and VERY LIGHT snow, becoming BREEZY later on (high 31/low 29). The afternoon will be CLOUDY, BREEZY and VERY LIGHT snow, becoming WINDY later on (high 28/low 24). By the evening, the weather will turn CLOUDY, WINDY and VERY LIGHT snow, becoming CLEAR later on (high 35/low 26). 
