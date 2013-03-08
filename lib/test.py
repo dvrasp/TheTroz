@@ -57,8 +57,10 @@ class WebMock(object):
             request = mock.Mock()
             request.text = f.read().decode('UTF-8')
             request.json = lambda: json.loads(request.text)
+            args = (url, post, get, format)
+            self.routes = filter(lambda item: item[0] != args, self.routes)
             self.routes.append((
-                (url, post, get, format),
+                args,
                 lib.spell.BaseSpell.fetchFormats[format](request)
             ))
 
