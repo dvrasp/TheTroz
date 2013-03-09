@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import mock
 import json
 import types
@@ -8,8 +9,13 @@ import requests
 import tempfile
 import datetime
 import itertools
-import unittest2
 import collections
+
+if sys.version_info[:2] <= (2, 6):
+    import unittest2 as unittest
+else:
+    import unittest
+
 import spells
 import lib
 import lib.spell
@@ -166,7 +172,7 @@ class WebCapture(object):
         for patch in self.patches:
             patch.stop()
 
-class Shaman(unittest2.TestCase):
+class Shaman(unittest.TestCase):
     """
     The Shaman will help illuminate flaws in your code and
     help you to heal them.
@@ -218,7 +224,7 @@ class Shaman(unittest2.TestCase):
     @classmethod
     def setUpClass(cls):
         """
-        A class-level fixture that gets called automatically by ``unittest2``;
+        A class-level fixture that gets called automatically by ``unittest``;
         there should be no need to call this function directly.
 
         This fixture takes care of the following:

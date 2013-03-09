@@ -3,7 +3,11 @@ import sys
 import json
 import argparse
 import textwrap
-import unittest2
+
+if sys.version_info[:2] <= (2, 6):
+    import unittest2 as unittest
+else:
+    import unittest
 
 import lib.registry
 import lib.config
@@ -87,13 +91,13 @@ if __name__ == "__main__":
     elif args.doInfo:
         parser.exit('\n'.join(get_spell_info(args.doInfo)))
     elif args.test:
-        loader = unittest2.TestLoader()
-        suite = unittest2.TestSuite()
+        loader = unittest.TestLoader()
+        suite = unittest.TestSuite()
         suite.addTests(
             loader.loadTestsFromTestCase(item['test'])
             for item in lib.registry.all() if item['test']
         )
-        testRunner = unittest2.runner.TextTestRunner(verbosity=2)
+        testRunner = unittest.runner.TextTestRunner(verbosity=2)
         testRunner.run(suite)
         parser.exit()
     elif not args.query:
