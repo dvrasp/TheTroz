@@ -2,3 +2,4 @@
 settings.conf
 save.db
 docs/_build
+.tox
