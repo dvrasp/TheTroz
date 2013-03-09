@@ -81,7 +81,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     lib.registry.collect()
-    config = lib.config.load('settings.conf')
 
     if args.doList:
         parser.exit('\n'.join(get_spells()))
@@ -100,6 +99,8 @@ if __name__ == "__main__":
     elif not args.query:
         parser.print_help()
         parser.exit()
+
+    config = lib.config.load('settings.conf')
 
     spell_objs = [item['spell']() for item in lib.registry.enabled()]
 
