@@ -1,7 +1,7 @@
+from __future__ import print_function
 import os
 import re
 import sys
-import mock
 import json
 import types
 import inspect
@@ -10,6 +10,11 @@ import tempfile
 import datetime
 import itertools
 import collections
+
+try:
+    import mock
+except ImportError:
+    from unittest import mock
 
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
@@ -61,10 +66,10 @@ class WebMock(object):
         """
         with open(os.path.join(self.root, file), 'r') as f:
             request = mock.Mock()
-            request.text = f.read().decode('UTF-8')
+            request.text = f.read()
             request.json = lambda: json.loads(request.text)
             args = (url, post, get, format)
-            self.routes = filter(lambda item: item[0] != args, self.routes)
+            self.routes = list(filter(lambda item: item[0] != args, self.routes))
             self.routes.append((
                 args,
                 lib.spell.BaseSpell.fetchFormats[format](request)
@@ -122,16 +127,16 @@ class WebCapture(object):
         :return: The result from the original ``get(...)`` function
         """
        
-        print 'url:', url,
+        print('url: %s' % url, end='')
 
         if 'params' in kwargs:
-            print 'get:',  kwargs['params'],
+            print('get: %s' % kwargs['params'], end='')
 
         result = self._get(url, **kwargs)
 
         with tempfile.NamedTemporaryFile(delete=False) as f:
             f.write(result.text.encode('UTF-8'))
-            print 'Output saved to', f.name
+            print('Output saved to %s' % f.name)
 
         return result
 
@@ -152,14 +157,14 @@ class WebCapture(object):
         :return: The result from the original ``get(...)`` function
         """
 
-        print 'url:', url,
-        print 'data:',  data,
+        print('url: %s' % url, end='')
+        print('data: %s' %  data, end='')
 
         result = self._post(url, data, **kwargs)
 
         with tempfile.NamedTemporaryFile(delete=False) as f:
             f.write(result.text)
-            print 'Output saved to', f.name
+            print('Output saved to %s' % f.name)
 
         return result
 
@@ -172,43 +177,46 @@ class WebCapture(object):
         for patch in self.patches:
             patch.stop()
 
-class Shaman(unittest.TestCase):
+class _ShamanMeta(type):
+    """
+    The ``lib.test.Shaman.generate`` function sets metadata on
+    what functions the user wants to create. Then,
+    ``__metaclass__`` reads that metadata and is the one
+    that actually creates the new functions
+    """
+    def __new__(cls, name, bases, class_dict):
+        def callback(function, args):
+            try:
+                string_types = types.StringTypes  # Python2.x
+            except AttributeError:
+                string_types = str  # Python3
+
+            if isinstance(args, string_types):
+                return lambda self: function(self, args)
+            else:
+                return lambda self: function(self, *args)
+
+        if name != 'Shaman':
+            for objName, obj in list(class_dict.items()):
+                if hasattr(obj, 'shaman_generate_inputs'):
+                    for id, input in obj.shaman_generate_inputs:
+                        key = '%s_%s' % (obj.__name__, id)
+                        class_dict[key] = callback(obj, input)
+                    del class_dict[objName]
+        return type.__new__(cls, name, bases, class_dict)
+
+    def __init__(cls, name, bases, class_dict):
+        if name != 'Shaman':
+            lib.registry.register(test=cls)
+
+# Apply ShamanMeta class to Shaman
+ShamanMeta = _ShamanMeta('Shaman', (object,), {})
+
+class Shaman(unittest.TestCase, ShamanMeta):
     """
     The Shaman will help illuminate flaws in your code and
     help you to heal them.
     """
-
-    class __metaclass__(type):
-        """
-        The ``lib.test.Shaman.generate`` function sets metadata on
-        what functions the user wants to create. Then,
-        ``__metaclass__`` reads that metadata and is the one
-        that actually creates the new functions
-        """
-        def __new__(cls, name, bases, class_dict):
-            def callback(function, args):
-                try:
-                    string_types = types.StringTypes  # Python2.x
-                except AttributeError:
-                    string_types = str  # Python3
-
-                if isinstance(args, string_types):
-                    return lambda self: function(self, args)
-                else:
-                    return lambda self: function(self, *args)
-
-            if name != 'Shaman':
-                for objName, obj in class_dict.items():
-                    if hasattr(obj, 'shaman_generate_inputs'):
-                        for id, input in obj.shaman_generate_inputs:
-                            key = '%s_%s' % (obj.__name__, id)
-                            class_dict[key] = callback(obj, input)
-                        del class_dict[objName]
-            return type.__new__(cls, name, bases, class_dict)
-
-        def __init__(cls, name, bases, class_dict):
-            if name != 'Shaman':
-                lib.registry.register(test=cls)
 
     #: The spell that is being tested
     #:
@@ -306,13 +314,13 @@ class Shaman(unittest.TestCase):
         """
 
         def wrapper(func):
-            inputs = kwargs.items()
+            inputs = list(kwargs.items())
             ids = itertools.count(1)
             for arg in args:
                 if isinstance(arg, types.GeneratorType):
                     inputs.extend(zip(ids, arg))
                 else:
-                    inputs.append((ids.next(), arg))
+                    inputs.append((next(ids), arg))
 
             func.shaman_generate_inputs = inputs
             return func

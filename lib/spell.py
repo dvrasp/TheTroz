@@ -3,24 +3,25 @@ import re
 import inspect
 import datetime
 import requests
-import StringIO
+
+from io import StringIO
 from xml.etree import ElementTree as ETree
 
 import lib.registry
 
+class _BaseSpellMeta(type):
+    """
+    This is used to override the default metaclass to intercept
+    the class creation. It first registers the subclass' info
+    before passing control back to the normal flow
+    """
+    def __init__(cls, name, bases, class_dict):
+        if name != 'BaseSpell':
+            lib.registry.register(spell=cls)
+BaseSpellMeta = _BaseSpellMeta('BaseSpell', (object,), {})
 
-class BaseSpell(object):
+class BaseSpell(BaseSpellMeta):
     """ As the name implies, this class provides a base functionality for spells.  """
-
-    class __metaclass__(type):
-        """
-        This overrides the default __metaclass__ to intercept the class
-        creation. It first registers the subclass' info before
-        passing control back to the normal flow
-        """
-        def __init__(cls, name, bases, class_dict):
-            if name != 'BaseSpell':
-                lib.registry.register(spell=cls)
 
     #: How much weight / relevance should be assigned. Spells with
     #: larger weights are preferred over ones with smaller weights. Defaults
@@ -76,12 +77,19 @@ class BaseSpell(object):
     #: :rtype: ``datetime.date``
     today = datetime.date.today
 
+    def XML(request):
+        if request.text:
+            try:
+                return ETree.fromstring(request.text)
+            except UnicodeEncodeError:
+                return ETree.fromstring(request.text.encode('UTF-8'))
+        else:
+            return ETree.ElementTree()
+
     fetchFormats = {
         'raw': lambda request: request.text,
         'json': lambda request: request.text and request.json() or {},
-        'xml': lambda request: request.text and ETree.parse(
-            StringIO.StringIO(request.text.encode('UTF-8'))
-        )._root or ETree.ElementTree()
+        'xml': XML
     }
 
     def __init__(self):

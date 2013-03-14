@@ -43,7 +43,7 @@ clean:
 
 pre:
 	python genSpellDoc.py > spell_docs.rst
-	cp ../README.rst introdution.rst
+	cp ../README introdution.rst
 
 html: pre
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html

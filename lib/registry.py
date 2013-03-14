@@ -32,7 +32,7 @@ def register(**kwargs):
     :type test: str
     :param test: If specified, register a new test
     """
-    for key, cls in kwargs.iteritems():
+    for key, cls in kwargs.items():
         root = get_root(cls)
         REGISTRY[root][key] = cls
         REGISTRY[root]['root'] = root
@@ -70,7 +70,7 @@ def lookup_by_name(**kwargs):
     """
 
     for item in all():
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
             if item[key] and item[key].__name__.lower() == value.lower():
                 return item
 
@@ -82,7 +82,7 @@ def all():
     :return: A list of dicts (see `lookup_by_name` for
         a description of the structure)
     """
-    return REGISTRY.itervalues()
+    return REGISTRY.values()
 
 def enabled():
     """

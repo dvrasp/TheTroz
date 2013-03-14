@@ -25,7 +25,7 @@ def ask(query, spell_objs, config, save):
             state = save.get(spell.__class__.__name__)
             result, state = spell.incantation(query, config, state)
             if result is None:
-                print 'Warning: %s failed' % spell
+                print('Warning: %s failed' % spell)
             else:
                 save[spell.__class__.__name__] = state
                 break
@@ -98,8 +98,8 @@ if __name__ == "__main__":
             for item in lib.registry.all() if item['test']
         )
         testRunner = unittest.runner.TextTestRunner(verbosity=2)
-        testRunner.run(suite)
-        parser.exit()
+        result = testRunner.run(suite)
+        parser.exit(len(result.errors))
     elif not args.query:
         parser.print_help()
         parser.exit()
@@ -116,9 +116,9 @@ if __name__ == "__main__":
 
     if args.capture:
         with lib.test.WebCapture():
-            print ask(args.query, spell_objs, config, save)[-1]
+            print(ask(args.query, spell_objs, config, save)[-1])
     else:
-        print ask(args.query, spell_objs, config, save)[-1]
+        print(ask(args.query, spell_objs, config, save)[-1])
 
     with open('save.db', 'w') as f:
         json.dump(save, f)
