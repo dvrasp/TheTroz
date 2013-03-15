@@ -262,5 +262,5 @@ texinfo_documents = [(
 #texinfo_show_urls = 'footnote'
 
 #--------------- Generate content  -----------------------------
-subprocess.call("python genSpellDoc.py > spell_docs.rst", shell=True)
+subprocess.call("%s genSpellDoc.py > spell_docs.rst" % sys.executable, shell=True)
 subprocess.call("cp ../README.rst introduction.rst", shell=True)
