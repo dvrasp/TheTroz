@@ -1,5 +1,4 @@
 import warnings
-import spells
 
 try:
     import configparser
@@ -7,6 +6,7 @@ except ImportError:
     import ConfigParser as configparser
 
 import lib.registry
+
 
 def load(fileName):
     """
@@ -20,11 +20,12 @@ def load(fileName):
     """
 
     configObj = configparser.ConfigParser()
-    configObj.optionxform = str # Keep case (default converts to lower case)
+    configObj.optionxform = str  # Keep case (default converts to lower case)
     configObj.read([fileName])
     config = dict(configObj.items('Config'))
     validate(config)
     return config
+
 
 def validate(config):
     """
@@ -69,7 +70,7 @@ def validate(config):
 
                 if configValue not in expectedValues:
                     warnings.warn(
-                        "%s '%s' must be one of the following: %s"  % (
+                        "%s '%s' must be one of the following: %s" % (
                             baseMsg, key, expectedValues
                         )
                     )

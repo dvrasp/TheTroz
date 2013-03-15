@@ -9,7 +9,6 @@ import requests
 import tempfile
 import datetime
 import itertools
-import collections
 
 try:
     import mock
@@ -46,11 +45,12 @@ class WebMock(object):
     def route(self, url, file, post=None, get=None, format='raw'):
         """
             :type url: str
-            :param url: The base URL to intercept. Do not include the query string
+            :param url: The base URL to intercept. Do not
+                include the query string
 
             :type file: str
-            :param file: The file name (in ``self.root``) that contains the response
-                data corresponding to the request
+            :param file: The file name (in ``self.root``) that contains
+                the response data corresponding to the request
 
             :type post: dict or None
             :param post: If set, will only intercept URLs which have post
@@ -69,7 +69,10 @@ class WebMock(object):
             request.text = f.read()
             request.json = lambda: json.loads(request.text)
             args = (url, post, get, format)
-            self.routes = list(filter(lambda item: item[0] != args, self.routes))
+            self.routes = list(filter(
+                lambda item: item[0] != args,
+                self.routes
+            ))
             self.routes.append((
                 args,
                 lib.spell.BaseSpell.fetchFormats[format](request)
@@ -80,8 +83,9 @@ class WebMock(object):
         This function replaces ``lib.spell.BaseSpell.fetch`` when the mock
         is active.
 
-        :raises:Exception: Any request that does not match one predefined with ``route()``
-            will result in an ``Exception`` being thrown.
+        :raises:Exception: Any request that does not match one
+            predefined with ``route()`` will result in an
+            ``Exception`` being thrown.
         """
 
         for args, content in self.routes:
@@ -126,7 +130,7 @@ class WebCapture(object):
         :rtype: str
         :return: The result from the original ``get(...)`` function
         """
-       
+
         print('url: %s' % url, end='')
 
         if 'params' in kwargs:
@@ -158,7 +162,7 @@ class WebCapture(object):
         """
 
         print('url: %s' % url, end='')
-        print('data: %s' %  data, end='')
+        print('data: %s' % data, end='')
 
         result = self._post(url, data, **kwargs)
 
@@ -176,6 +180,7 @@ class WebCapture(object):
     def __exit__(self, exc_type, exc_value, traceback):
         for patch in self.patches:
             patch.stop()
+
 
 class _ShamanMeta(type):
     """
@@ -209,8 +214,10 @@ class _ShamanMeta(type):
         if name != 'Shaman':
             lib.registry.register(test=cls)
 
+
 # Apply ShamanMeta class to Shaman
 ShamanMeta = _ShamanMeta('Shaman', (object,), {})
+
 
 class Shaman(unittest.TestCase, ShamanMeta):
     """
@@ -238,13 +245,14 @@ class Shaman(unittest.TestCase, ShamanMeta):
         This fixture takes care of the following:
             * The module being tested is automatically detected
             * The following mocks are configured:
-                * **state** -- creates a temporary storage for the spell's state
-                * **config** -- a mock config that can be configured in the test and
-                    "loaded" by the config
+                * **state** -- creates a temporary storage for
+                    the spell's state
+                * **config** -- a mock config that can be configured
+                    in the test and "loaded" by the config
                 * **web** -- overwrites ``lib.spell.BaseSpell.fetch`` with
                     a ``lib.test.WebMock`` function which intercepts
-                    requests which are then served by predefined datafiles so
-                    that the test can be run offline
+                    requests which are then served by predefined
+                    datafiles so that the test can be run offline
         """
 
         spellRegistry = lib.registry.lookup_by_name(test=cls.__name__)
@@ -281,8 +289,8 @@ class Shaman(unittest.TestCase, ShamanMeta):
         :type kwargs: dict
         :param kwargs: The keyword arguments
 
-        The generated functions are named by taking the name of decorated function
-        and then:
+        The generated functions are named by taking the name of
+        decorated function and then:
 
         * using numerically incrementing ids for input elements in ``*args``
         * using the keyword provided for the input elements in ``**kwargs``
@@ -329,7 +337,8 @@ class Shaman(unittest.TestCase, ShamanMeta):
     @classmethod
     def collectQueries(cls):
         """
-        Run the test (silently) and return the queries issued, along with the associated results
+        Run the test (silently) and return the queries issued,
+        along with the associated results
 
         :rtype: dict
         :return: A dictionary mapping input queries to expected output
@@ -342,7 +351,6 @@ class Shaman(unittest.TestCase, ShamanMeta):
                 clsObj.setUp()
                 obj()
         return clsObj.queries
-
 
     def setUp(self):
         pass
@@ -359,7 +367,8 @@ class Shaman(unittest.TestCase, ShamanMeta):
             :param second: The second value to use in the comparison
 
             :type msg: str or None
-            :param msg: Use a custom error message if the values don't look alike
+            :param msg: Use a custom error message if the values
+                don't look alike
 
             :raises: ``AssertionError``
         """
@@ -379,7 +388,8 @@ class Shaman(unittest.TestCase, ShamanMeta):
 
     def query(self, query):
         """
-            Pass query to spell with mocked functions enabled, returning the result
+            Pass query to spell with mocked functions enabled,
+            returning the result
 
             :type query: str
             :param query: The query to give to the spell
@@ -387,7 +397,7 @@ class Shaman(unittest.TestCase, ShamanMeta):
             :returns: returns the result of the spell
             :rtype: str
         """
-            
+
         for patch in self.patches:
             patch.start()
 

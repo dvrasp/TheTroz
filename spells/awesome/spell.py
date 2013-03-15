@@ -34,6 +34,6 @@ class Awesome(lib.spell.BaseSpell):
         )
 
         if result['type'] == 'success':
-            return result['value']['joke'].replace('&quot;','"'), state
+            return result['value']['joke'].replace('&quot;', '"'), state
         else:
             return None, state

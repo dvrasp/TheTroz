@@ -15,7 +15,9 @@ lib.registry.collect()
 print('Documentation of Included Spells')
 print('================================')
 
-for item in sorted(lib.registry.all(), key=lambda item:item['spell'].__name__):
+sortKey = lambda item: item['spell'].__name__
+
+for item in sorted(lib.registry.all(), key=sortKey):
     spellObj = item['spell']
     name = spellObj.__name__
 

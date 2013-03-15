@@ -9,11 +9,11 @@ if sys.version_info[:2] <= (2, 6):
 else:
     import unittest
 
+import spells
 import lib.registry
 import lib.config
 import lib.spell
 import lib.test
-import spells
 
 
 def ask(query, spell_objs, config, save):
@@ -31,22 +31,24 @@ def ask(query, spell_objs, config, save):
                 break
     return score, spell, result
 
+
 def get_spells():
     yield 'The following spells are currently installed:'
-    for spell in sorted(lib.registry.all(), key=lambda item:item['spell']):
+    for spell in sorted(lib.registry.all(), key=lambda item: item['spell']):
         yield (
-            '    * %s%s -- %s'  % (
-                not spell['enabled'] and '[needs config] ' or  '',
+            '    * %s%s -- %s' % (
+                not spell['enabled'] and '[needs config] ' or '',
                 spell['spell'].__name__,
                 spell['spell'].__doc__
             )
         )
 
+
 def get_spell_info(spell, width=70):
     spellDict = lib.registry.lookup_by_name(spell=spell)
     spellObj = spellDict['spell']
     if not spellDict['spell']:
-        raise RuntimeException
+        raise RuntimeError()
 
     yield '  * Name: %s' % spellObj.__name__
     yield textwrap.fill(
@@ -77,11 +79,17 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Your own personal wizard')
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('query', metavar='"QUERY"', nargs='?', help="Your query to troz, in quotes")
-    group.add_argument('--spell-list', dest='doList', action='store_const', const=True, default=False, help='List all spells currently installed')
-    group.add_argument('--spell-info', dest='doInfo', metavar='SPELL', help='Get detailed information a specific spell')
-    group.add_argument('--test', action='store_const', const=True, help='Run test suite')
-    parser.add_argument('--capture', action='store_const', const=True, help='Output debugging info and save fetched queries to disk')
+    group.add_argument('query', metavar='"QUERY"', nargs='?',
+                       help="Your query to troz, in quotes")
+    group.add_argument('--spell-list', dest='doList', action='store_const',
+                       const=True, default=False,
+                       help='List all spells currently installed')
+    group.add_argument('--spell-info', dest='doInfo', metavar='SPELL',
+                       help='Get detailed information a specific spell')
+    group.add_argument('--test', action='store_const', const=True,
+                       help='Run test suite')
+    parser.add_argument('--capture', action='store_const', const=True,
+                        help='Output debugging info and save fetched queries to disk')
 
     args = parser.parse_args()
     lib.registry.collect()

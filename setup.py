@@ -3,10 +3,10 @@
 from distutils.core import setup
 import sys
 
-requiredList = ['requests','python-dateutil']
+requiredList = ['requests', 'python-dateutil']
 
 if sys.version_info[:2] <= (2, 6):
-    requiredList.extend(['argparse','unittest2'])
+    requiredList.extend(['argparse', 'unittest2'])
 if sys.version_info[:2] <= (2, 7):
     requiredList.extend(['mock'])
 if sys.version_info[:2] <= (3,):

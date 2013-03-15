@@ -4,7 +4,10 @@ import inspect
 import pkgutil
 import collections
 
-REGISTRY = collections.defaultdict(lambda: {'spell':None, 'test': None, 'enabled': True})
+REGISTRY = collections.defaultdict(
+    lambda: {'spell': None, 'test': None, 'enabled': True}
+)
+
 
 def collect(root='spells'):
     """
@@ -20,6 +23,7 @@ def collect(root='spells'):
         if fid:
             imp.load_module(name, fid, pathname, desc)
             fid.close()
+
 
 def register(**kwargs):
     """
@@ -37,6 +41,7 @@ def register(**kwargs):
         REGISTRY[root][key] = cls
         REGISTRY[root]['root'] = root
 
+
 def get_root(cls):
     """
     Get the parent directory of the module that contains class `cls`
@@ -48,6 +53,7 @@ def get_root(cls):
     :return: The parent directory path
     """
     return os.path.realpath(os.path.split(inspect.getfile(cls))[0])
+
 
 def lookup_by_name(**kwargs):
     """
@@ -74,6 +80,7 @@ def lookup_by_name(**kwargs):
             if item[key] and item[key].__name__.lower() == value.lower():
                 return item
 
+
 def all():
     """
     Return all registered spells
@@ -84,6 +91,7 @@ def all():
     """
     return REGISTRY.values()
 
+
 def enabled():
     """
     Return all registered spells in which the 'enabled' value
@@ -93,4 +101,4 @@ def enabled():
     :return: A list of dicts (see `lookup_by_name` for
         a description of the structure)
     """
-    return ( value for value in REGISTRY.values() if value['enabled'] )
+    return (value for value in REGISTRY.values() if value['enabled'])

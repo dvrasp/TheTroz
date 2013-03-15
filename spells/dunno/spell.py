@@ -16,7 +16,6 @@ class Dunno(lib.spell.BaseSpell):
         'I would love to help you, but',
     ]
 
-
     def incantation(self, query, config, state):
         excuse = self.fetch(
             'http://pages.cs.wisc.edu/~ballard/bofh/bofhserver.pl',

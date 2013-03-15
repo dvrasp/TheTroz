@@ -1,13 +1,11 @@
-import os
 import re
-import inspect
 import datetime
 import requests
 
-from io import StringIO
 from xml.etree import ElementTree as ETree
 
 import lib.registry
+
 
 class _BaseSpellMeta(type):
     """
@@ -20,8 +18,12 @@ class _BaseSpellMeta(type):
             lib.registry.register(spell=cls)
 BaseSpellMeta = _BaseSpellMeta('BaseSpell', (object,), {})
 
+
 class BaseSpell(BaseSpellMeta):
-    """ As the name implies, this class provides a base functionality for spells.  """
+    """
+    As the name implies, this class provides
+    a base functionality for spells.
+    """
 
     #: How much weight / relevance should be assigned. Spells with
     #: larger weights are preferred over ones with smaller weights. Defaults
@@ -50,7 +52,7 @@ class BaseSpell(BaseSpellMeta):
     #:        'key1': type1,
     #:        'key2': type2,
     #:        ...
-    #:        'keyN': typeN 
+    #:        'keyN': typeN
     #:    }
     #:
     #: When starting up, Troz will check to make sure that those
@@ -77,7 +79,7 @@ class BaseSpell(BaseSpellMeta):
     #: :rtype: ``datetime.date``
     today = datetime.date.today
 
-    def XML(request):
+    def xml(request):
         if request.text:
             try:
                 return ETree.fromstring(request.text)
@@ -89,13 +91,12 @@ class BaseSpell(BaseSpellMeta):
     fetchFormats = {
         'raw': lambda request: request.text,
         'json': lambda request: request.text and request.json() or {},
-        'xml': XML
+        'xml': xml
     }
 
     def __init__(self):
         self.pattern = re.compile(self.pattern, re.IGNORECASE | re.VERBOSE)
         self.blacklist = re.compile(self.blacklist, re.IGNORECASE | re.VERBOSE)
-
 
     def fetch(self, url, post=None, get=None, format='raw'):
         """
@@ -120,9 +121,11 @@ class BaseSpell(BaseSpellMeta):
             provided.
 
         Valid values for **format** are:
-            * **raw** -- return the result without any post-processing. Returns a ``str``
+            * **raw** -- return the result without any post-processing.
+                Returns a ``str``
             * **json** -- decode the result as a JSON; returns a ``dict``
-            * **xml** -- decode the result as XML. Returns an ``ElementTree`` object
+            * **xml** -- decode the result as XML. Returns an
+                ``ElementTree`` object
 
         :returns: The result retrieved from the resource decoded with
             the post-processor specified in ``format``
@@ -153,8 +156,9 @@ class BaseSpell(BaseSpellMeta):
             * **score**: By default, this is equal to ``self.weight``
             * **spell**: The current spell object (``self``)
             * **match**: The portion of the string that matched.
-                If there is a regular expression group defined in ``self.pattern``,
-                then the first matching group is returned
+                If there is a regular expression group defined in
+                ``self.pattern``, then the first matching group
+                is returned
 
         :type query: str
         :param query: The query to parse
@@ -175,10 +179,12 @@ class BaseSpell(BaseSpellMeta):
     def incantation(self, query, config, state):
         """
         :type query: str
-        :param query: The user's query that was processed by ``lib.spell.BaseSpell.parse``
-        
+        :param query: The user's query that was processed by
+            ``lib.spell.BaseSpell.parse``
+
         :type config: dict
-        :param config: The user configuration that is stored in ``settings.conf``
+        :param config: The user configuration that is stored in
+            ``settings.conf``
 
         :type state: dict
         :param state: A storage object that can be used to persist data
