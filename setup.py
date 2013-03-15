@@ -21,8 +21,5 @@ setuptools.setup(
     url='http://TheTroz.com',
     packages=setuptools.find_packages(),
     scripts = ['troz.py'],
-    install_requires=requiredList,
-    extras_require = {
-        'docs': ['sphinx', 'sphinxjp.themecore']
-    }
+    install_requires=requiredList
 )

@@ -1,0 +1,7 @@
+sphinx
+sphinxjp.themecore
+requests
+python-dateutil
+argparse
+unittest2
+mock
