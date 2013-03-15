@@ -4,3 +4,4 @@ save.db
 docs/_build
 docs/spell_docs.rst
 .tox
+Troz.egg-info/
