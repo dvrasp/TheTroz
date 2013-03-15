@@ -73,5 +73,7 @@ To get information on a specific spell, use the ``--spell-info`` flag
 Getting Help
 ------------
 
-    * **Documentation**:  http://thetroz.com/docs
+    * **Documentation**:  https://thetroz.readthedocs.org
     * **Development Mailing List**: troz-devs@lists.sourceforge.net
+
+.. image:: https://api.travis-ci.org/linuxlefty/TheTroz.png?branch=master
