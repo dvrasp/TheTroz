@@ -14,6 +14,7 @@
 
 import sys
 import os
+import subprocess
 
 # If extensions (or modules to document with autodoc) are in
 # another directory, add these directories to sys.path here.
@@ -259,3 +260,7 @@ texinfo_documents = [(
 
 # How to display URL addresses: 'footnote', 'no', or 'inline'.
 #texinfo_show_urls = 'footnote'
+
+#--------------- Generate content  -----------------------------
+subprocess.call("python genSpellDoc.py > spell_docs.rst", shell=True)
+subprocess.call("cp ../README.rst introduction.rst", shell=True)

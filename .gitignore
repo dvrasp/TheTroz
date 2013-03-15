@@ -4,5 +4,6 @@ settings.conf
 save.db
 docs/_build
 docs/spell_docs.rst
+docs/introduction.rst
 .tox
 Troz.egg-info/
