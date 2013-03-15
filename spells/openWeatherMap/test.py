@@ -16,28 +16,28 @@ class OpenWeatherMap(Shaman):
             url='http://api.openweathermap.org/data/2.1/find/name',
             get={'q': self.config['Weather.Location']},
             format='json',
-            file='find_accident_maryland.json'
+            file='find_accident_maryland.dat'
         )
 
         self.web.route(
             url='http://api.openweathermap.org/data/2.1/find/name',
             get={'q': 'Dallas, Texas'},
             format='json',
-            file='find_accident_maryland.json'
+            file='find_accident_maryland.dat'
         )
 
         self.web.route(
             url='http://api.openweathermap.org/data/2.1/weather/city/4363282',
             get={'units': self.config['Weather.Units']},
             format='json',
-            file='weather_accident_maryland.json'
+            file='weather_accident_maryland.dat'
         )
 
         self.web.route(
             url='http://api.openweathermap.org/data/2.2/forecast/city/4363282',
             get={'units': self.config['Weather.Units']},
             format='json',
-            file='forecast_accident_maryland.json'
+            file='forecast_accident_maryland.dat'
         )
 
     @Shaman.generate(

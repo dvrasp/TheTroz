@@ -3,22 +3,22 @@ from lib.test import Shaman
 queries = [
     (
         "What is the tallest building in the world?",
-        "Burj Khalifa (2717 feet)", "tallest_building.xml"
+        "Burj Khalifa (2717 feet)", "tallest_building.dat"
     ), (
         "Where was George Washington born?",
-        "Westmoreland County, Virginia", "george_washington_birthplace.xml"
+        "Westmoreland County, Virginia", "george_washington_birthplace.dat"
     ), (
         "When is Easter?",
-        "Sunday, March 31, 2013", "easter_date.xml"
+        "Sunday, March 31, 2013", "easter_date.dat"
     ), (
         "How many cups are in a gallon?",
-        "16 cups", "cups_in_gallon.xml"
+        "16 cups", "cups_in_gallon.dat"
     ), (
         "How much is 15 miles in feet?",
-        "79200 feet", "15miles_in_feet.xml"
+        "79200 feet", "15miles_in_feet.dat"
     ), (
         "15 USD in RMB",
-        "yuan93.44  (Chinese yuan)", "15USD_in_RMB.xml"
+        "yuan93.44  (Chinese yuan)", "15USD_in_RMB.dat"
     )
 ]
 

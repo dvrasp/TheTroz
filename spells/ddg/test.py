@@ -15,7 +15,7 @@ class DDG(Shaman):
                 'format': 'json'
             },
             format='json',
-            file='george_washington.json'
+            file='george_washington.dat'
         )
 
         self.web.route(
@@ -28,7 +28,7 @@ class DDG(Shaman):
                 'format': 'json'
             },
             format='json',
-            file='cookies.json'
+            file='cookies.dat'
         )
 
         self.web.route(
@@ -41,7 +41,7 @@ class DDG(Shaman):
                 'format': 'json'
             },
             format='json',
-            file='13_plus_14.json'
+            file='13_plus_14.dat'
         )
 
     def test_george_washington(self):

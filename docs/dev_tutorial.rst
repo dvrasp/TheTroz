@@ -272,14 +272,13 @@ Coding up Your First Test
 Now we're ready to code up our first test!
 
 The first thing we'll do is copy over the saved capture files to the ``test_data`` directory so that we can load them
-via the ``route`` helper. We'll name the files something meaningful and with a ``.json`` extension (since there is JSON
-data inside).
+via the ``route`` helper. We'll name the files something meaningful and with a ``.dat`` extension.
 
 .. code-block:: shell-session
 
     [user@host]$ mkdir spells/awesome/test_data
-    [user@host]$ mv /tmp/tmpG1pKIW spells/awesome/test_data/peter_naudus.json
-    [user@host]$ mv /tmp/tmpImni3o spells/awesome/test_data/chuck_norris.json
+    [user@host]$ mv /tmp/tmpG1pKIW spells/awesome/test_data/peter_naudus.dat
+    [user@host]$ mv /tmp/tmpImni3o spells/awesome/test_data/chuck_norris.dat
 
 Now we'll use the information returned by the capture session to build our test:
 
@@ -298,7 +297,7 @@ Now we'll use the information returned by the capture session to build our test:
                     'lastName': 'Naudus'
                 },
                 format='json',
-                file='peter_naudus.json'
+                file='peter_naudus.dat'
             )
 
             # Register URL for "How awesome is Chuck Norris?" query
@@ -309,7 +308,7 @@ Now we'll use the information returned by the capture session to build our test:
                     'lastName': 'Norris'
                 },
                 format='json',
-                file='chuck_norris.json'
+                file='chuck_norris.dat'
             )
 
         def test_peter_naudus(self):

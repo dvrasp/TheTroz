@@ -13,7 +13,7 @@ class Awesome(Shaman):
                 'exclude': ['explicit']
             },
             format='json',
-            file='peter_naudus.json'
+            file='peter_naudus.dat'
         )
 
         self.web.route(
@@ -24,7 +24,7 @@ class Awesome(Shaman):
                 'exclude': ['explicit']
             },
             format='json',
-            file='chuck_norris.json'
+            file='chuck_norris.dat'
         )
 
         self.config['Personal.FirstName'] = 'Peter'
