@@ -1,4 +1,5 @@
 *.pyc
+*.bak
 settings.conf
 save.db
 docs/_build
