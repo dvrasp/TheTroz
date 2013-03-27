@@ -3,6 +3,7 @@ import sys
 import json
 import argparse
 import textwrap
+import cmd
 
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
@@ -90,6 +91,9 @@ if __name__ == "__main__":
                        help='Run test suite')
     parser.add_argument('--capture', action='store_const', const=True,
                         help='Output debugging info and save fetched queries to disk')
+    group.add_argument('--shell', dest='doShell', action='store_const',
+                       const=True, default=False,
+                       help='Launch a shell')
 
     args = parser.parse_args()
     lib.registry.collect()
@@ -108,7 +112,7 @@ if __name__ == "__main__":
         testRunner = unittest.runner.TextTestRunner(verbosity=2)
         result = testRunner.run(suite)
         parser.exit(len(result.errors))
-    elif not args.query:
+    elif not args.query and not args.doShell:
         parser.print_help()
         parser.exit()
 
@@ -122,11 +126,22 @@ if __name__ == "__main__":
     else:
         save = {}
 
+    def do_it():
+        if args.doShell:
+            class Shell(cmd.Cmd):
+                def default(self, line):
+                    print(ask(line, spell_objs, config, save)[-1])
+                def do_EOF(self, line):
+                    return True
+            Shell().cmdloop()
+        else:
+            print(ask(args.query, spell_objs, config, save)[-1])
+        
     if args.capture:
         with lib.test.WebCapture():
-            print(ask(args.query, spell_objs, config, save)[-1])
+            do_it()
     else:
-        print(ask(args.query, spell_objs, config, save)[-1])
+        do_it()
 
     with open('save.db', 'w') as f:
         json.dump(save, f)
